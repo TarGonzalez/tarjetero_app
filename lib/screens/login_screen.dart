@@ -19,24 +19,26 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: SizedBox.expand(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(child: InputLabel(texto: 'Usuario')),
-                TextFormField(),
-                const MaxGap(30),
-                const InputLabel(texto: 'Password'),
-                TextFormField(),
-                const MaxGap(30),
-                GlobalButton(
-                  texto: 'Login',
-                  onPressed: _irHome,
-                ),
-              ],
+      body: SafeArea(
+        child: SizedBox.expand(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(child: InputLabel(texto: 'Usuario')),
+                  TextFormField(),
+                  const MaxGap(30),
+                  const InputLabel(texto: 'Password'),
+                  TextFormField(),
+                  const MaxGap(30),
+                  GlobalButton(
+                    texto: 'Login',
+                    onPressed: _irHome,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

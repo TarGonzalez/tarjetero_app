@@ -52,45 +52,47 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(36.0),
-          child: Stack(
-            children: <Widget> [
-              PageView.builder(
-                controller: _pageViewController,
-                onPageChanged: _changeIndex,
-                itemCount: _pages.length,
-                itemBuilder: (BuildContext context, int index) => _pages[_index],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: AnimatedSmoothIndicator(
-                  activeIndex: _index,
-                  count: _pages.length,
-                  onDotClicked: _changeIndex,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(36.0),
+            child: Stack(
+              children: <Widget> [
+                PageView.builder(
+                  controller: _pageViewController,
+                  onPageChanged: _changeIndex,
+                  itemCount: _pages.length,
+                  itemBuilder: (BuildContext context, int index) => _pages[_index],
                 ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: OutlinedButton(
-                  onPressed: _irLogin,
-                  child: const Text('SALTAR'),
-                ),
-              ),
-              Visibility(
-                visible: _index == 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 36.0),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: OutlinedButton(
-                      onPressed: _irLogin,
-                      child: const Text('SIGUIENTE'),
-                    ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AnimatedSmoothIndicator(
+                    activeIndex: _index,
+                    count: _pages.length,
+                    onDotClicked: _changeIndex,
                   ),
                 ),
-              )
-            ],
+                Align(
+                  alignment: Alignment.topRight,
+                  child: OutlinedButton(
+                    onPressed: _irLogin,
+                    child: const Text('SALTAR'),
+                  ),
+                ),
+                Visibility(
+                  visible: _index == 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 36.0),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: OutlinedButton(
+                        onPressed: _irLogin,
+                        child: const Text('SIGUIENTE'),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
