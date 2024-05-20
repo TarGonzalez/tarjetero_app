@@ -16,11 +16,14 @@ class InputLabel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: alineacionHorizontal,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            texto,
-            style: Theme.of(context).textTheme.displayMedium,
-            textAlign: TextAlign.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              texto,
+              style: Theme.of(context).textTheme.displayMedium,
+              textAlign: TextAlign.start,
+            ),
           ),
         ],
       ),
