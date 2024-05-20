@@ -1,28 +1,43 @@
-import 'package:control_gastos_tarjetas/widgets/global/input_label.dart';
 import 'package:flutter/material.dart';
-import '../widgets/global/the_app_bar.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+
+import '../routes/routes_names.dart';
+import '/widgets/global/global_button.dart';
+import '/widgets/global/input_label.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+  void _irHome() {
+    Get.toNamed(nameTabsScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TheAppBar(titulo: 'Login'),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: SizedBox.expand(
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(child: InputLabel(texto: 'Usuario')),
-              TextFormField(
-                
-              ),
-              const InputLabel(texto: 'Password'),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(child: InputLabel(texto: 'Usuario')),
+                TextFormField(),
+                const MaxGap(30),
+                const InputLabel(texto: 'Password'),
+                TextFormField(),
+                const MaxGap(30),
+                GlobalButton(
+                  texto: 'Login',
+                  onPressed: _irHome,
+                ),
+              ],
+            ),
           ),
         ),
       ),
