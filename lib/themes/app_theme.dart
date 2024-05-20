@@ -12,6 +12,46 @@ final ThemeData themeLight = ThemeData(
       fontWeight: FontWeight.w600,
     ),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color?>(colorPrimario),
+      side: MaterialStateProperty.all<BorderSide?>(
+        const BorderSide(color: colorPrimario),
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 50),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 50),
+      ),
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color?>(
+        colorPrimario,
+      ),
+      foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 50),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 50),
+      ),
+    ),
+  ),
   inputDecorationTheme: const InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     border: OutlineInputBorder(), // Define el borde de los inputs
@@ -88,6 +128,46 @@ final ThemeData themeDark = ThemeData(
       color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.w600,
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color?>(colorPrimario),
+      side: MaterialStateProperty.all<BorderSide?>(
+        const BorderSide(color: colorPrimario),
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 50),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 50),
+      ),
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color?>(
+        colorPrimario,
+      ),
+      foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 50),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 50),
+      ),
     ),
   ),
   inputDecorationTheme: const InputDecorationTheme(
