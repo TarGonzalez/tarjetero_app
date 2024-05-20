@@ -12,7 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
-  PageController _pageViewController = PageController(keepPage: true);
+  PageController _pageViewController = PageController();
   int _index = 0;
   final List<Widget> _pages = const <Widget>[
     Center(
@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _pageViewController.dispose();
   }
 
-  void _changeIndex(val) {
+  void _changeIndex(int val) {
     setState(() {
       _index = val;
     });
@@ -55,19 +55,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         body: Padding(
           padding: const EdgeInsets.all(36.0),
           child: Stack(
-            children: [
+            children: <Widget> [
               PageView.builder(
                 controller: _pageViewController,
                 onPageChanged: _changeIndex,
                 itemCount: _pages.length,
-                itemBuilder: (context, index) => _pages[_index],
+                itemBuilder: (BuildContext context, int index) => _pages[_index],
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: AnimatedSmoothIndicator(
                   activeIndex: _index,
                   count: _pages.length,
-                  effect: const WormEffect(),
                   onDotClicked: _changeIndex,
                 ),
               ),

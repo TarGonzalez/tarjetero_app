@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'color_palette.dart';
 
-final themeLight = ThemeData(
+final ThemeData themeLight = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
     centerTitle: true,
@@ -79,7 +79,7 @@ final themeLight = ThemeData(
   ),
 );
 
-final themeDark = ThemeData(
+final ThemeData themeDark = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
     centerTitle: true,

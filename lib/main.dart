@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/routes/routes_pages.dart';
+
 import '/routes/routes_names.dart';
+import '/routes/routes_pages.dart';
 import '/themes/app_theme.dart';
 
 void main() {
