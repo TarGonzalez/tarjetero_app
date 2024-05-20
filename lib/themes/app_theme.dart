@@ -5,7 +5,7 @@ final ThemeData themeLight = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
     centerTitle: true,
-    backgroundColor: Colors.blueAccent,
+    backgroundColor: colorPrimario,
     titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20,
