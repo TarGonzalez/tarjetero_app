@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '/routes/routes_names.dart';
 import '/routes/routes_pages.dart';
 import '/themes/app_theme.dart';
+import 'controllers/main_controller.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,6 +15,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Inicializamos los controllers
+    Get.put(MainController());
     return GetMaterialApp(
       initialRoute: nameOnboardingScreen,
       getPages: rutas,
