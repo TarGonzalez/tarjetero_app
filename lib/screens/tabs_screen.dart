@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
+import '../routes/routes_names.dart';
 import '../themes/color_palette.dart';
-import '../utils/loader.dart';
-import '../widgets/global/global_button.dart';
+import 'tabs/tab_cards.dart';
+import 'tabs/tab_compras.dart';
+import 'tabs/tab_home.dart';
+import 'tabs/tab_settings.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -15,12 +18,33 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
+  IconData? _iconoTab;
 
-  Future<void> _mostrarLoader() async {
-    Loader.mostrar();
-    await Future<void>.delayed(const Duration(seconds: 2));
-    Get.back();
-    return;
+  Widget _setTab() {
+    switch (_selectedIndex) {
+      case 1:
+        _iconoTab = Icons.add_card_rounded;
+        return const TabCards();
+      case 2:
+        _iconoTab = Icons.post_add_rounded;
+        return const TabCompras();
+      case 3:
+        return const TabSettings();
+      default:
+    }
+    return const TabHome();
+  }
+
+  void _irNuevaPantalla() {
+    switch (_selectedIndex) {
+      case 1:
+        Get.toNamed(nameNuevaTarjetaScreen);
+        break;
+      case 2:
+        Get.toNamed(nameNuevaCompraScreen);
+        break;
+      default:
+    }
   }
 
   @override
@@ -28,15 +52,34 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       body: SafeArea(
-        child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GlobalButton(
-                  texto: 'Mostrar loader',
-                  onPressed: _mostrarLoader,
+        child: Stack(
+          children: <Widget>[
+            SizedBox.expand(
+              child: SingleChildScrollView(
+                child: _setTab(),
+              ),
+            ),
+            Visibility(
+              visible: _selectedIndex == 1 || _selectedIndex == 2,
+              child: Positioned(
+                bottom: 10,
+                right: 30,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: colorPrimario,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      _iconoTab,
+                      color: colorOro,
+                    ),
+                    onPressed: () => _irNuevaPantalla(),
+                  ),
                 ),
-              ]),
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: MoltenBottomNavigationBar(
