@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 import '../themes/color_palette.dart';
+import '../utils/loader.dart';
+import '../widgets/global/global_button.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -12,13 +15,28 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
+
+  Future<void> _mostrarLoader() async {
+    Loader.mostrar();
+    await Future<void>.delayed(const Duration(seconds: 2));
+    Get.back();
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      body: const SafeArea(
+      body: SafeArea(
         child: Center(
-          child: Text('Soy el home'),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                GlobalButton(
+                  texto: 'Mostrar loader',
+                  onPressed: _mostrarLoader,
+                ),
+              ]),
         ),
       ),
       bottomNavigationBar: MoltenBottomNavigationBar(
