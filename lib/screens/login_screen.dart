@@ -10,7 +10,7 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   void _irHome() {
-    Get.toNamed(nameTabsScreen);
+    Get.offNamed(nameTabsScreen);
   }
 
   @override
@@ -31,7 +31,9 @@ class LoginScreen extends StatelessWidget {
                   TextFormField(),
                   const MaxGap(30),
                   const InputLabel(texto: 'Password'),
-                  TextFormField(),
+                  TextFormField(
+                    obscureText: true,
+                  ),
                   const MaxGap(30),
                   GlobalButton(
                     texto: 'Login',

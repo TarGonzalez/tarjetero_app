@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _irLogin() {
-    Get.toNamed(nameLoginScreen);
+    Get.offNamed(nameLoginScreen);
   }
 
   @override
