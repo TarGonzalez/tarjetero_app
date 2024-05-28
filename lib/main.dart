@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
       getPages: rutas,
       theme: themeLight,
       darkTheme: themeDark,
-      defaultTransition: Transition.leftToRightWithFade,
+      defaultTransition: Transition.rightToLeftWithFade,
     );
   }
 }
