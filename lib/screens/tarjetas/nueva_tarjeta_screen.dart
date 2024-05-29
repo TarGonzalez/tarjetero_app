@@ -124,25 +124,21 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             pinned: true,
             expandedHeight: 325.0,
             flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 60.0,
-                      horizontal: 30,
-                    ),
-                    child: Obx(
-                      () => Center(
-                        child: TarjetaWidget(
-                          alto: double.infinity,
-                          ancho: double.infinity,
-                          tarjetaActual: tarjetaController.tarjetaActual,
-                          ctlr: flipController,
-                        ),
-                      ),
+              background: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 60.0,
+                  horizontal: 30,
+                ),
+                child: Obx(
+                  () => Center(
+                    child: TarjetaWidget(
+                      alto: double.infinity,
+                      ancho: double.infinity,
+                      tarjetaActual: tarjetaController.tarjetaActual,
+                      ctlr: flipController,
                     ),
                   ),
-                ],
+                ),
               ),
             ),
             centerTitle: true,
