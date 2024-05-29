@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
+import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -26,7 +28,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     final TextEditingController tituloController = TextEditingController();
-    final MaskedTextController numeroController = MaskedTextController(mask: '0000000000000000');
+    final MaskedTextController numeroController =
+        MaskedTextController(mask: '0000000000000000');
     final TextEditingController titularController = TextEditingController();
     final MaskedTextController expiracionController =
         MaskedTextController(mask: '00/00');
@@ -46,6 +49,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titular: tarjetaActual.titular,
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
       );
     }
 
@@ -58,6 +62,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titular: tarjetaActual.titular,
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
       );
     }
 
@@ -70,6 +75,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titular: val,
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
       );
     }
 
@@ -82,6 +88,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titular: tarjetaActual.titular,
         expiracion: val,
         codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
       );
     }
 
@@ -94,6 +101,20 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titular: tarjetaActual.titular,
         expiracion: tarjetaActual.codigo,
         codigo: val,
+        color: tarjetaActual.color,
+      );
+    }
+
+    Future<void> cambiarColor(Color val) async {
+      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
+      tarjetaController.tarjetaActual =
+          tarjetaController.tarjetaActual.copyWith(
+        titulo: tarjetaActual.titulo,
+        numero: tarjetaActual.numero,
+        titular: tarjetaActual.titular,
+        expiracion: tarjetaActual.codigo,
+        codigo: tarjetaActual.codigo,
+        color: val,
       );
     }
 
@@ -124,21 +145,78 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             pinned: true,
             expandedHeight: 325.0,
             flexibleSpace: FlexibleSpaceBar(
-              background: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 60.0,
-                  horizontal: 30,
-                ),
-                child: Obx(
-                  () => Center(
-                    child: TarjetaWidget(
-                      alto: double.infinity,
-                      ancho: double.infinity,
-                      tarjetaActual: tarjetaController.tarjetaActual,
-                      ctlr: flipController,
+              background: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 60.0,
+                      horizontal: 30,
+                    ),
+                    child: Obx(
+                      () => Center(
+                        child: TarjetaWidget(
+                          alto: double.infinity,
+                          ancho: double.infinity,
+                          tarjetaActual: tarjetaController.tarjetaActual,
+                          ctlr: flipController,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 10,
+                    right: 30,
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'Color',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                        ),
+                        const SizedBox(width: 12),
+                        WheelColorPicker(
+                          onSelect: (Color newColor) async {
+                            await cambiarColor(newColor);
+                          },
+                          behaviour: ButtonBehaviour.clickToOpen,
+                          defaultColor: Colors.lightBlue,
+                          animationConfig: fanLikeAnimationConfig,
+                          // colorList: const <List<Color>>[
+                          //   <Color>[
+                          //     Colors.red,
+                          //     Colors.redAccent,
+                          //     Colors.deepOrange
+                          //   ],
+                          //   <Color>[
+                          //     Colors.black26,
+                          //     Colors.black45,
+                          //     Colors.black87
+                          //   ],
+                          //   <Color>[
+                          //     Colors.blue,
+                          //     Colors.blueAccent,
+                          //     Colors.blueGrey
+                          //   ],
+                          //   <Color>[
+                          //     Colors.deepPurpleAccent,
+                          //     Colors.purpleAccent
+                          //   ],
+                          // ],
+                          colorList: simpleColors,
+                          buttonSize: 40,
+                          pieceHeight: 15,
+                          innerRadius: 80,
+                          stickToButton: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             centerTitle: true,
@@ -296,32 +374,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                           ],
                         ),
                         setEspaciador(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: <Widget>[
-                                  const InputLabel(texto: 'Color'),
-                                  TextFormField(),
-                                ],
-                              ),
-                            ),
-                            const Flexible(
-                              child: SizedBox(),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: <Widget>[
-                                  const InputLabel(texto: '´Marca'),
-                                  TextFormField(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        const InputLabel(texto: '´Marca'),
+                        TextFormField(),
                         setEspaciador(),
                         const InputLabel(texto: 'Comentarios'),
                         TextFormField(
