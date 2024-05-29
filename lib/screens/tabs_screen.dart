@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
+import '../controllers/tarjeta_controller.dart';
 import '../routes/routes_names.dart';
 import '../themes/color_palette.dart';
 import 'tabs/tab_cards.dart';
@@ -35,9 +36,11 @@ class _TabsScreenState extends State<TabsScreen> {
     return const TabHome();
   }
 
-  void _irNuevaPantalla() {
+  Future<void> _irNuevaPantalla() async {
     switch (_selectedIndex) {
       case 1:
+        final TarjetaController tarjetaController = Get.find<TarjetaController>();
+        await tarjetaController.limpiarTarjetaActual();
         Get.toNamed(nameNuevaTarjetaScreen);
         break;
       case 2:
