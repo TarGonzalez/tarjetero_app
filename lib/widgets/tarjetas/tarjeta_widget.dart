@@ -8,14 +8,12 @@ class TarjetaWidget extends StatelessWidget {
     super.key,
     this.ancho = 300.0,
     this.alto = 200,
-    this.color = Colors.lightBlue,
     required this.tarjetaActual,
     required this.ctlr,
   });
 
   final double ancho;
   final double alto;
-  final Color color;
   final Tarjeta tarjetaActual;
   final GestureFlipCardController ctlr;
   @override
@@ -41,7 +39,7 @@ class TarjetaWidget extends StatelessWidget {
             frontWidget: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: color,
+                color: tarjetaActual.color ?? Colors.lightBlue,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -111,7 +109,7 @@ class TarjetaWidget extends StatelessWidget {
             backWidget: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: color,
+                color: tarjetaActual.color ?? Colors.lightBlue,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(

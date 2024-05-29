@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tarjeta.g.dart';
@@ -11,6 +12,7 @@ class Tarjeta {
     this.titular,
     this.expiracion,
     this.codigo,
+    this.color,
   });
 
   factory Tarjeta.fromJson(Map<String, dynamic> data) =>
@@ -23,21 +25,25 @@ class Tarjeta {
   String? titular;
   String? expiracion;
   String? codigo;
+  Color? color;
 
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
 
-  Tarjeta copyWith(
-      {String? titulo,
-      String? numero,
-      String? titular,
-      String? expiracion,
-      String? codigo}) {
+  Tarjeta copyWith({
+    String? titulo,
+    String? numero,
+    String? titular,
+    String? expiracion,
+    String? codigo,
+    Color? color,
+  }) {
     return Tarjeta(
       titulo: titulo ?? this.titulo,
       numero: numero ?? this.numero,
       titular: titular ?? this.titular,
       expiracion: expiracion ?? this.expiracion,
       codigo: codigo ?? this.codigo,
+      color: color ?? this.color,
     );
   }
 }
