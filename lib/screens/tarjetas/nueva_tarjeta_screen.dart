@@ -1,11 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/tarjeta.dart';
+import '../../utils/loader.dart';
+import '../../widgets/global/global_button.dart';
 import '../../widgets/global/input_label.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
 
@@ -20,13 +21,17 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
   @override
   Widget build(BuildContext context) {
     final TarjetaController tarjetaController = Get.find<TarjetaController>();
-    final GestureFlipCardController flipController = GestureFlipCardController();
-    // final TextEditingController tituloCtr = TextEditingController();
-    // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    // late TextEditingController numeroCtr = TextEditingController();
-    // late TextEditingController titularCtr = TextEditingController();
-    // late TextEditingController expiracionCtr = TextEditingController();
-    // late TextEditingController codigoCtr = TextEditingController();
+    final GestureFlipCardController flipController =
+        GestureFlipCardController();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    final TextEditingController tituloController = TextEditingController();
+    final MaskedTextController numeroController = MaskedTextController(mask: '0000000000000000');
+    final TextEditingController titularController = TextEditingController();
+    final MaskedTextController expiracionController =
+        MaskedTextController(mask: '00/00');
+    final MaskedTextController codigoController =
+        MaskedTextController(mask: '0000');
 
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
@@ -92,6 +97,25 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       );
     }
 
+    Future<void> limpiarFormulario() async {
+      tituloController.text = '';
+      numeroController.text = '';
+      titularController.text = '';
+      expiracionController.text = '';
+      codigoController.text = '';
+      await tarjetaController.limpiarTarjetaActual();
+    }
+
+    Future<void> validarFormAltaTarjeta() async {
+      final bool validacion = formKey.currentState!.validate();
+      if (validacion) {
+        Loader.mostrar();
+        await Future<void>.delayed(const Duration(seconds: 3));
+        Get.back();
+        await limpiarFormulario();
+      }
+    }
+
     return Scaffold(
       body: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -100,17 +124,25 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             pinned: true,
             expandedHeight: 325.0,
             flexibleSpace: FlexibleSpaceBar(
-              background: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 60.0,
-                  horizontal: 30,
-                ),
-                child: Obx(
-                  () => TarjetaWidget(
-                    tarjetaActual: tarjetaController.tarjetaActual,
-                    ctlr: flipController,
+              background: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 60.0,
+                      horizontal: 30,
+                    ),
+                    child: Obx(
+                      () => Center(
+                        child: TarjetaWidget(
+                          alto: double.infinity,
+                          ancho: double.infinity,
+                          tarjetaActual: tarjetaController.tarjetaActual,
+                          ctlr: flipController,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             centerTitle: true,
@@ -123,31 +155,58 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
                   child: Form(
-                    // key: _formKey,
+                    key: formKey,
                     child: Column(
                       children: <Widget>[
                         const InputLabel(texto: 'Título de la tarjeta'),
                         TextFormField(
+                          controller: tituloController,
+                          maxLength: 30,
                           onChanged: (String val) async {
                             await cambiarTitulo(val);
+                          },
+                          validator: (String? val) {
+                            if (val!.isEmpty) {
+                              return 'Introduzca un título a su tarjeta';
+                            }
+                            return null;
                           },
                         ),
                         setEspaciador(),
                         const InputLabel(texto: 'Número de la tarjeta'),
                         TextFormField(
+                          controller: numeroController,
                           keyboardType: TextInputType.number,
                           maxLength: 16,
                           onChanged: (String val) async {
                             await cambiarNumero(val);
                           },
                           decoration: const InputDecoration(
-                              hintText: 'Recuerde son 16 dígitos'),
+                            hintText: 'Recuerde son 16 dígitos',
+                          ),
+                          validator: (String? val) {
+                            if (val!.isEmpty) {
+                              return 'Introduzca el número de tarjeta';
+                            }
+                            if (val.length != 16) {
+                              return 'Deben ser 16 dígitos';
+                            }
+                            return null;
+                          },
                         ),
                         setEspaciador(),
                         const InputLabel(texto: 'Nombre del titular'),
                         TextFormField(
+                          controller: titularController,
+                          maxLength: 50,
                           onChanged: (String val) async {
                             await cambiarTitular(val);
+                          },
+                          validator: (String? val) {
+                            if (val!.isEmpty) {
+                              return 'Introduzca el titular de la tarjeta';
+                            }
+                            return null;
                           },
                         ),
                         setEspaciador(),
@@ -158,15 +217,54 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               flex: 5,
                               child: Column(
                                 children: <Widget>[
-                                  // const InputLabel(texto: 'Fecha de expiración'),
+                                  const InputLabel(
+                                    texto: 'Fecha de expiración',
+                                  ),
                                   TextFormField(
+                                    controller: expiracionController,
+                                    maxLength: 5,
                                     onChanged: (String val) async {
                                       await cambiarExpiracion(val);
                                     },
                                     decoration: const InputDecoration(
-                                      labelText: 'Fecha de expiración',
                                       hintText: 'MM/AA',
                                     ),
+                                    validator: (String? val) {
+                                      if (val!.isEmpty) {
+                                        return 'Requerido';
+                                      }
+
+                                      final List<String> parts = val.split('/');
+                                      if (parts.length != 2) {
+                                        return 'Formato incorrecto';
+                                      }
+
+                                      final int? month = int.tryParse(parts[0]);
+                                      final int? yearPart =
+                                          int.tryParse(parts[1]);
+                                      final String currentYear =
+                                          DateTime.now().year.toString();
+                                      final String century =
+                                          currentYear.substring(0, 2);
+                                      final int? year =
+                                          int.tryParse('$century$yearPart');
+
+                                      if (month == null ||
+                                          year == null ||
+                                          month < 1 ||
+                                          month > 12) {
+                                        return 'Fecha no válida';
+                                      }
+                                      final DateTime now = DateTime.now();
+                                      final DateTime inputDate =
+                                          DateTime(year, month);
+
+                                      if (inputDate.isBefore(
+                                          DateTime(now.year, now.month))) {
+                                        return 'Fecha expiró';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ],
                               ),
@@ -180,14 +278,21 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                 children: <Widget>[
                                   const InputLabel(texto: 'CVV'),
                                   TextFormField(
+                                    controller: codigoController,
                                     keyboardType: TextInputType.number,
                                     maxLength: 4,
                                     onChanged: (String val) async {
                                       await cambiarCodigo(val);
                                     },
-                                    onTap: () async {
-                            await flipController.flipcard();
-                          }
+                                    validator: (String? val) {
+                                      if (val!.isEmpty) {
+                                        return 'Requerido';
+                                      }
+                                      if (val.length < 3) {
+                                        return 'Código inválido';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ],
                               ),
@@ -214,11 +319,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               flex: 5,
                               child: Column(
                                 children: <Widget>[
-                                  // const InputLabel(texto: '´Marca'),
-                                  TextFormField(
-                                    decoration: const InputDecoration(
-                                        labelText: 'Marca'),
-                                  ),
+                                  const InputLabel(texto: '´Marca'),
+                                  TextFormField(),
                                 ],
                               ),
                             ),
@@ -227,6 +329,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                         setEspaciador(),
                         const InputLabel(texto: 'Comentarios'),
                         TextFormField(
+                          maxLength: 200,
                           maxLines: 3,
                         ),
                       ],
@@ -238,6 +341,13 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+        child: GlobalButton(
+          texto: 'Guardar',
+          onPressed: validarFormAltaTarjeta,
+        ),
       ),
     );
   }

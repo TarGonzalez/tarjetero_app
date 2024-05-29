@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import '../../helpers/tarjeta_helper.dart';
 import '../../models/tarjeta.dart';
 
 class TarjetaWidget extends StatelessWidget {
@@ -58,7 +59,10 @@ class TarjetaWidget extends StatelessWidget {
                   ),
                   const Spacer(flex: 2),
                   Text(
-                    tarjetaActual.numero != null ? tarjetaActual.numero! : '',
+                    tarjetaActual.numero != null
+                        ? TarjetaHelper.ponerMascaraNumero(
+                            numero: tarjetaActual.numero!)
+                        : '',
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: Colors.white,
                         ),
