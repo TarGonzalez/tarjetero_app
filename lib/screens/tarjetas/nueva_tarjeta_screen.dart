@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
 import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart' as picker;
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/tarjeta.dart';
+import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
 import '../../widgets/global/global_button.dart';
 import '../../widgets/global/input_label.dart';
@@ -36,8 +38,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     final MaskedTextController codigoController =
         MaskedTextController(mask: '0000');
 
-    final MaskedTextController fechaPagoController =
-        MaskedTextController(mask: '00/0000');
+    final TextEditingController fechaPagoController =
+        TextEditingController();
 
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
@@ -355,7 +357,21 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                 children: <Widget>[
                                   const InputLabel(texto: 'Fecha de pago'),
                                   TextFormField(
+                                    readOnly: true,
                                     controller: fechaPagoController,
+                                    onTap: () {
+                                      picker.DatePicker.showDatePicker(
+                                        context,
+                                        minTime: DateTime(2023),
+                                        maxTime: DateTime(2050, 12),
+                                        locale: picker.LocaleType.es,
+                                        onConfirm: (DateTime date) {
+                                          print(date);
+                                          final formateada = FechaUtils.getFormatoFecha(fecha: date);
+                                          print(formateada);
+                                        }
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
