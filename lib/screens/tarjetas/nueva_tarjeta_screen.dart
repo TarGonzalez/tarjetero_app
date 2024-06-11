@@ -36,6 +36,9 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     final MaskedTextController codigoController =
         MaskedTextController(mask: '0000');
 
+    final MaskedTextController fechaPagoController =
+        MaskedTextController(mask: '00/0000');
+
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
     }
@@ -99,7 +102,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titulo: tarjetaActual.titulo,
         numero: tarjetaActual.numero,
         titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.codigo,
+        expiracion: tarjetaActual.expiracion,
         codigo: val,
         color: tarjetaActual.color,
       );
@@ -112,7 +115,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         titulo: tarjetaActual.titulo,
         numero: tarjetaActual.numero,
         titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.codigo,
+        expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
         color: val,
       );
@@ -149,7 +152,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 60.0,
+                      vertical: 80.0,
                       horizontal: 30,
                     ),
                     child: Obx(
@@ -282,6 +285,82 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                             }
                             return null;
                           },
+                        ),
+                        setEspaciador(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                children: <Widget>[
+                                  const InputLabel(
+                                    texto: 'Fecha de corte',
+                                  ),
+                                  TextFormField(
+                                    controller: expiracionController,
+                                    maxLength: 5,
+                                    onChanged: (String val) async {
+                                      await cambiarExpiracion(val);
+                                    },
+                                    decoration: const InputDecoration(
+                                      hintText: 'MM/AA',
+                                    ),
+                                    validator: (String? val) {
+                                      if (val!.isEmpty) {
+                                        return 'Requerido';
+                                      }
+
+                                      final List<String> parts = val.split('/');
+                                      if (parts.length != 2) {
+                                        return 'Formato incorrecto';
+                                      }
+
+                                      final int? month = int.tryParse(parts[0]);
+                                      final int? yearPart =
+                                          int.tryParse(parts[1]);
+                                      final String currentYear =
+                                          DateTime.now().year.toString();
+                                      final String century =
+                                          currentYear.substring(0, 2);
+                                      final int? year =
+                                          int.tryParse('$century$yearPart');
+
+                                      if (month == null ||
+                                          year == null ||
+                                          month < 1 ||
+                                          month > 12) {
+                                        return 'Fecha no válida';
+                                      }
+                                      final DateTime now = DateTime.now();
+                                      final DateTime inputDate =
+                                          DateTime(year, month);
+
+                                      if (inputDate.isBefore(
+                                          DateTime(now.year, now.month))) {
+                                        return 'Fecha expiró';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Flexible(
+                              child: SizedBox(),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                children: <Widget>[
+                                  const InputLabel(texto: 'Fecha de pago'),
+                                  TextFormField(
+                                    controller: fechaPagoController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         setEspaciador(),
                         Row(
