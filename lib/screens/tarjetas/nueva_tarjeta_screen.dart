@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
 import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart' as picker;
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+    as picker;
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -38,8 +40,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     final MaskedTextController codigoController =
         MaskedTextController(mask: '0000');
 
-    final TextEditingController fechaPagoController =
-        TextEditingController();
+    final TextEditingController fechaCorteController = TextEditingController();
+    final TextEditingController fechaPagoController = TextEditingController();
 
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
@@ -55,6 +57,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
         color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
       );
     }
 
@@ -68,6 +72,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
         color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
       );
     }
 
@@ -81,6 +87,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
         color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
       );
     }
 
@@ -94,6 +102,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: val,
         codigo: tarjetaActual.codigo,
         color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
       );
     }
 
@@ -107,6 +117,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: tarjetaActual.expiracion,
         codigo: val,
         color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
       );
     }
 
@@ -120,6 +132,44 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         expiracion: tarjetaActual.expiracion,
         codigo: tarjetaActual.codigo,
         color: val,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: tarjetaActual.fechaPago,
+      );
+    }
+
+    Future<void> cambiarFechaCorte(DateTime val) async {
+      final String fechaFormateada =
+          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
+      fechaCorteController.text = fechaFormateada;
+      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
+      tarjetaController.tarjetaActual =
+          tarjetaController.tarjetaActual.copyWith(
+        titulo: tarjetaActual.titulo,
+        numero: tarjetaActual.numero,
+        titular: tarjetaActual.titular,
+        expiracion: tarjetaActual.expiracion,
+        codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
+        fechaCorte: val.toString(),
+        fechaPago: tarjetaActual.fechaPago,
+      );
+    }
+
+    Future<void> cambiarFechaPago(DateTime val) async {
+      final String fechaFormateada =
+          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
+      fechaPagoController.text = fechaFormateada;
+      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
+      tarjetaController.tarjetaActual =
+          tarjetaController.tarjetaActual.copyWith(
+        titulo: tarjetaActual.titulo,
+        numero: tarjetaActual.numero,
+        titular: tarjetaActual.titular,
+        expiracion: tarjetaActual.expiracion,
+        codigo: tarjetaActual.codigo,
+        color: tarjetaActual.color,
+        fechaCorte: tarjetaActual.fechaCorte,
+        fechaPago: val.toString(),
       );
     }
 
@@ -129,6 +179,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       titularController.text = '';
       expiracionController.text = '';
       codigoController.text = '';
+      fechaCorteController.text = '';
+      fechaPagoController.text = '';
       await tarjetaController.limpiarTarjetaActual();
     }
 
@@ -300,49 +352,25 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                     texto: 'Fecha de corte',
                                   ),
                                   TextFormField(
-                                    controller: expiracionController,
-                                    maxLength: 5,
-                                    onChanged: (String val) async {
-                                      await cambiarExpiracion(val);
-                                    },
+                                    readOnly: true,
                                     decoration: const InputDecoration(
-                                      hintText: 'MM/AA',
+                                      hintText: 'MMM/DD',
                                     ),
-                                    validator: (String? val) {
-                                      if (val!.isEmpty) {
-                                        return 'Requerido';
-                                      }
-
-                                      final List<String> parts = val.split('/');
-                                      if (parts.length != 2) {
-                                        return 'Formato incorrecto';
-                                      }
-
-                                      final int? month = int.tryParse(parts[0]);
-                                      final int? yearPart =
-                                          int.tryParse(parts[1]);
-                                      final String currentYear =
-                                          DateTime.now().year.toString();
-                                      final String century =
-                                          currentYear.substring(0, 2);
-                                      final int? year =
-                                          int.tryParse('$century$yearPart');
-
-                                      if (month == null ||
-                                          year == null ||
-                                          month < 1 ||
-                                          month > 12) {
-                                        return 'Fecha no válida';
-                                      }
-                                      final DateTime now = DateTime.now();
-                                      final DateTime inputDate =
-                                          DateTime(year, month);
-
-                                      if (inputDate.isBefore(
-                                          DateTime(now.year, now.month))) {
-                                        return 'Fecha expiró';
-                                      }
-                                      return null;
+                                    controller: fechaCorteController,
+                                    onTap: () {
+                                      picker.DatePicker.showPicker(
+                                        context,
+                                        locale: picker.LocaleType.es,
+                                        pickerModel: CustomMonthPicker(
+                                          currentTime: DateTime.now(),
+                                          minTime: DateTime(2023),
+                                          maxTime: DateTime(2050, 12),
+                                          locale: picker.LocaleType.es,
+                                        ),
+                                        onConfirm: (DateTime date) async {
+                                          await cambiarFechaCorte(date);
+                                        },
+                                      );
                                     },
                                   ),
                                 ],
@@ -358,18 +386,23 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                   const InputLabel(texto: 'Fecha de pago'),
                                   TextFormField(
                                     readOnly: true,
+                                    decoration: const InputDecoration(
+                                      hintText: 'MMM/DD',
+                                    ),
                                     controller: fechaPagoController,
                                     onTap: () {
-                                      picker.DatePicker.showDatePicker(
+                                      picker.DatePicker.showPicker(
                                         context,
-                                        minTime: DateTime(2023),
-                                        maxTime: DateTime(2050, 12),
                                         locale: picker.LocaleType.es,
-                                        onConfirm: (DateTime date) {
-                                          print(date);
-                                          final formateada = FechaUtils.getFormatoFecha(fecha: date);
-                                          print(formateada);
-                                        }
+                                        pickerModel: CustomMonthPicker(
+                                          currentTime: DateTime.now(),
+                                          minTime: DateTime(2023),
+                                          maxTime: DateTime(2050, 12),
+                                          locale: picker.LocaleType.es,
+                                        ),
+                                        onConfirm: (DateTime date) async {
+                                          await cambiarFechaPago(date);
+                                        },
                                       );
                                     },
                                   ),
@@ -495,5 +528,23 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         ),
       ),
     );
+  }
+}
+
+class CustomMonthPicker extends DatePickerModel {
+  CustomMonthPicker(
+      {required DateTime currentTime,
+      required DateTime minTime,
+      required DateTime maxTime,
+      required LocaleType locale})
+      : super(
+            locale: locale,
+            minTime: minTime,
+            maxTime: maxTime,
+            currentTime: currentTime);
+
+  @override
+  List<int> layoutProportions() {
+    return <int>[0, 1, 1];
   }
 }
