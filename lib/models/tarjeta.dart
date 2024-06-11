@@ -42,6 +42,8 @@ class Tarjeta {
     String? expiracion,
     String? codigo,
     Color? color,
+    String? fechaCorte,
+    String? fechaPago,
   }) {
     return Tarjeta(
       titulo: titulo ?? this.titulo,
@@ -50,6 +52,8 @@ class Tarjeta {
       expiracion: expiracion ?? this.expiracion,
       codigo: codigo ?? this.codigo,
       color: color ?? this.color,
+      fechaCorte: fechaCorte ?? this.fechaCorte,
+      fechaPago: fechaPago ?? this.fechaPago,
     );
   }
 }
