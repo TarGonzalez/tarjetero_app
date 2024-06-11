@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import '../helpers/color_converter_helper.dart';
 
 part 'tarjeta.g.dart';
 
@@ -13,6 +14,8 @@ class Tarjeta {
     this.expiracion,
     this.codigo,
     this.color,
+    this.fechaCorte,
+    this.fechaPago,
   });
 
   factory Tarjeta.fromJson(Map<String, dynamic> data) =>
@@ -25,7 +28,10 @@ class Tarjeta {
   String? titular;
   String? expiracion;
   String? codigo;
+  @ColorConverterHelper()
   Color? color;
+  String? fechaCorte;
+  String? fechaPago;
 
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
 
