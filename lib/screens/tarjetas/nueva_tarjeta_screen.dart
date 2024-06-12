@@ -9,7 +9,6 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/tarjeta_controller.dart';
-import '../../models/tarjeta.dart';
 import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
 import '../../widgets/global/global_button.dart';
@@ -48,129 +47,41 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     }
 
     Future<void> cambiarTitulo(String val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: val,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarTitulo(val);
     }
 
     Future<void> cambiarNumero(String val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: val,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarNumero(val);
     }
 
     Future<void> cambiarTitular(String val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: val,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarTitular(val);
     }
 
     Future<void> cambiarExpiracion(String val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: val,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarExpiracion(val);
     }
 
     Future<void> cambiarCodigo(String val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: val,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarCodigo(val);
     }
 
     Future<void> cambiarColor(Color val) async {
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: val,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarColor(val);
     }
 
     Future<void> cambiarFechaCorte(DateTime val) async {
       final String fechaFormateada =
           FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
       fechaCorteController.text = fechaFormateada;
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: val.toString(),
-        fechaPago: tarjetaActual.fechaPago,
-      );
+      await tarjetaController.cambiarFechaCorte(val);
     }
 
     Future<void> cambiarFechaPago(DateTime val) async {
       final String fechaFormateada =
           FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
       fechaPagoController.text = fechaFormateada;
-      final Tarjeta tarjetaActual = tarjetaController.tarjetaActual;
-      tarjetaController.tarjetaActual =
-          tarjetaController.tarjetaActual.copyWith(
-        titulo: tarjetaActual.titulo,
-        numero: tarjetaActual.numero,
-        titular: tarjetaActual.titular,
-        expiracion: tarjetaActual.expiracion,
-        codigo: tarjetaActual.codigo,
-        color: tarjetaActual.color,
-        fechaCorte: tarjetaActual.fechaCorte,
-        fechaPago: val.toString(),
-      );
+      await tarjetaController.cambiarFechaPago(val);
     }
 
     Future<void> limpiarFormulario() async {
@@ -206,8 +117,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 80.0,
-                      horizontal: 30,
+                      vertical: 70.0,
+                      horizontal: 40.0,
                     ),
                     child: Obx(
                       () => Center(
@@ -291,6 +202,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                       children: <Widget>[
                         const InputLabel(texto: 'Título de la tarjeta'),
                         TextFormField(
+                          textInputAction: TextInputAction.next,
                           controller: tituloController,
                           maxLength: 30,
                           onChanged: (String val) async {
@@ -306,6 +218,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                         setEspaciador(),
                         const InputLabel(texto: 'Número de la tarjeta'),
                         TextFormField(
+                          textInputAction: TextInputAction.next,
                           controller: numeroController,
                           keyboardType: TextInputType.number,
                           maxLength: 16,
@@ -328,6 +241,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                         setEspaciador(),
                         const InputLabel(texto: 'Nombre del titular'),
                         TextFormField(
+                          textInputAction: TextInputAction.next,
                           controller: titularController,
                           maxLength: 50,
                           onChanged: (String val) async {
@@ -352,11 +266,18 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                     texto: 'Fecha de corte',
                                   ),
                                   TextFormField(
+                                    textInputAction: TextInputAction.next,
                                     readOnly: true,
                                     decoration: const InputDecoration(
                                       hintText: 'MMM/DD',
                                     ),
                                     controller: fechaCorteController,
+                                    validator: (String? val) {
+                                      if (val!.isEmpty) {
+                                        return 'Seleccione una fecha de corte';
+                                      }
+                                      return null;
+                                    },
                                     onTap: () {
                                       picker.DatePicker.showPicker(
                                         context,
@@ -385,11 +306,18 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                 children: <Widget>[
                                   const InputLabel(texto: 'Fecha de pago'),
                                   TextFormField(
+                                    textInputAction: TextInputAction.next,
                                     readOnly: true,
                                     decoration: const InputDecoration(
                                       hintText: 'MMM/DD',
                                     ),
                                     controller: fechaPagoController,
+                                    validator: (String? val) {
+                                      if (val!.isEmpty) {
+                                        return 'Seleccione una fecha de pago';
+                                      }
+                                      return null;
+                                    },
                                     onTap: () {
                                       picker.DatePicker.showPicker(
                                         context,
@@ -411,7 +339,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                             ),
                           ],
                         ),
-                        setEspaciador(),
+                        setEspaciador(altura: 50),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -423,6 +351,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                     texto: 'Fecha de expiración',
                                   ),
                                   TextFormField(
+                                    textInputAction: TextInputAction.next,
                                     controller: expiracionController,
                                     maxLength: 5,
                                     onChanged: (String val) async {
@@ -480,6 +409,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                 children: <Widget>[
                                   const InputLabel(texto: 'CVV'),
                                   TextFormField(
+                                    textInputAction: TextInputAction.next,
                                     controller: codigoController,
                                     keyboardType: TextInputType.number,
                                     maxLength: 4,
@@ -503,10 +433,13 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                         ),
                         setEspaciador(),
                         const InputLabel(texto: '´Marca'),
-                        TextFormField(),
+                        TextFormField(
+                          textInputAction: TextInputAction.next,
+                        ),
                         setEspaciador(),
                         const InputLabel(texto: 'Comentarios'),
                         TextFormField(
+                          textInputAction: TextInputAction.done,
                           maxLength: 200,
                           maxLines: 3,
                         ),
