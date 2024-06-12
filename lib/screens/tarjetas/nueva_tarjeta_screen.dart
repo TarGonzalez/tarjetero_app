@@ -116,9 +116,11 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
               background: Stack(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 70.0,
-                      horizontal: 40.0,
+                    padding: const EdgeInsets.only(
+                      top: 90.0,
+                      bottom: 75.0,
+                      right: 40.0,
+                      left: 40.0,
                     ),
                     child: Obx(
                       () => Center(
