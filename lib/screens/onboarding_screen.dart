@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../widgets/global/global_button.dart';
 import '/routes/routes_names.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -56,12 +57,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           child: Padding(
             padding: const EdgeInsets.all(36.0),
             child: Stack(
-              children: <Widget> [
+              children: <Widget>[
                 PageView.builder(
                   controller: _pageViewController,
                   onPageChanged: _changeIndex,
                   itemCount: _pages.length,
-                  itemBuilder: (BuildContext context, int index) => _pages[_index],
+                  itemBuilder: (BuildContext context, int index) =>
+                      _pages[_index],
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -73,9 +75,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: OutlinedButton(
-                    onPressed: _irLogin,
-                    child: const Text('SALTAR'),
+                  child: SizedBox(
+                    width: 130,
+                    child: GlobalButton(
+                      accion: 'secundaria',
+                      texto: 'Saltar',
+                      onPressed: _irLogin,
+                    ),
                   ),
                 ),
                 Visibility(
@@ -84,9 +90,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     padding: const EdgeInsets.only(bottom: 36.0),
                     child: Align(
                       alignment: Alignment.bottomRight,
-                      child: OutlinedButton(
-                        onPressed: _irLogin,
-                        child: const Text('SIGUIENTE'),
+                      child: SizedBox(
+                        child: GlobalButton(
+                          texto: 'Siguiente',
+                          onPressed: _irLogin,
+                        ),
                       ),
                     ),
                   ),
