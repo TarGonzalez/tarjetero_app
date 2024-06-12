@@ -3,13 +3,27 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes_names.dart';
+import '../widgets/global/global_progress.dart';
 import '/widgets/global/global_button.dart';
 import '/widgets/global/input_label.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
-  void _irHome() {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isLoading = false;
+  Future<void> _irHome() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Future<void>.delayed(const Duration(milliseconds: 2500));
+    setState(() {
+      _isLoading = false;
+    });
     Get.offNamed(nameTabsScreen);
   }
 
@@ -35,9 +49,21 @@ class LoginScreen extends StatelessWidget {
                     obscureText: true,
                   ),
                   const MaxGap(30),
-                  GlobalButton(
-                    texto: 'Login',
-                    onPressed: _irHome,
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      );
+                    },
+                    child: !_isLoading
+                        ? GlobalButton(
+                            texto: 'Login',
+                            onPressed: _irHome,
+                          )
+                        : const GlobalProgress(size: 50),
                   ),
                 ],
               ),
