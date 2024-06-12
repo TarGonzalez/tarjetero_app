@@ -3,6 +3,7 @@ import 'color_palette.dart';
 
 final ThemeData themeLight = ThemeData(
   useMaterial3: true,
+  primaryColor: colorPrimario,
   appBarTheme: const AppBarTheme(
     centerTitle: true,
     backgroundColor: colorPrimario,
@@ -122,6 +123,7 @@ final ThemeData themeLight = ThemeData(
 
 final ThemeData themeDark = ThemeData(
   useMaterial3: true,
+  primaryColor: colorPrimario,
   appBarTheme: const AppBarTheme(
     centerTitle: true,
     backgroundColor: Colors.black87,
