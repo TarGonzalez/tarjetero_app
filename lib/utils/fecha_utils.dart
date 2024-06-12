@@ -25,4 +25,11 @@ class FechaUtils {
     }
     return fechaFormat;
   }
+
+  static DateTime parseFecha({
+    required String fechaStr,
+    String mask = 'yyyy-MM-dd HH:mm:ss.SSS',
+  }) {
+    return DateFormat(mask).parse(fechaStr);
+  }
 }
