@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 class FechaUtils {
   static String getFormatoFecha(
-      {required DateTime fecha, bool conHora = true, int tipo = 1}) {
+      {required DateTime fecha, bool conHora = true, dynamic tipo = 1}) {
     String fechaMask;
     String fechaFormat;
     switch (tipo) {
@@ -13,6 +13,18 @@ class FechaUtils {
       // Ene/01
       case 3:
         fechaMask = 'MMM/dd';
+        break;
+      // DD
+      case 'dia':
+        fechaMask = 'dd';
+        break;
+      // MM
+      case 'mes':
+        fechaMask = 'MM';
+        break;
+      // YYYY
+      case 'anio':
+        fechaMask = 'YYYY';
         break;
       // 01/01/0000
       default:
