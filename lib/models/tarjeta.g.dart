@@ -14,8 +14,8 @@ Tarjeta _$TarjetaFromJson(Map<String, dynamic> json) => Tarjeta(
       expiracion: json['expiracion'] as String?,
       codigo: json['codigo'] as String?,
       color: const ColorConverterHelper().fromJson(json['color'] as String?),
-      fechaCorte: json['fechaCorte'] as String?,
-      fechaPago: json['fechaPago'] as String?,
+      diaCorte: json['diaCorte'] as String?,
+      diaPago: json['diaPago'] as String?,
     );
 
 Map<String, dynamic> _$TarjetaToJson(Tarjeta instance) => <String, dynamic>{
@@ -26,6 +26,6 @@ Map<String, dynamic> _$TarjetaToJson(Tarjeta instance) => <String, dynamic>{
       'expiracion': instance.expiracion,
       'codigo': instance.codigo,
       'color': const ColorConverterHelper().toJson(instance.color),
-      'fechaCorte': instance.fechaCorte,
-      'fechaPago': instance.fechaPago,
+      'diaCorte': instance.diaCorte,
+      'diaPago': instance.diaPago,
     };

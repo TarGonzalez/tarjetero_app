@@ -17,8 +17,8 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
@@ -31,8 +31,8 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
@@ -45,8 +45,8 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
@@ -59,8 +59,8 @@ class TarjetaController extends GetxController {
       expiracion: val,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
@@ -73,8 +73,8 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: val,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
@@ -87,12 +87,12 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: val,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
-  Future<void> cambiarFechaCorte(DateTime val) async {
+  Future<void> cambiarFechaCorte(String val) async {
     final Tarjeta tarjetaActual = _tarjetaActual.value;
     _tarjetaActual.value = _tarjetaActual.value.copyWith(
       titulo: tarjetaActual.titulo,
@@ -101,12 +101,12 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: val.toString(),
-      fechaPago: tarjetaActual.fechaPago,
+      diaCorte: val,
+      diaPago: tarjetaActual.diaPago,
     );
   }
 
-  Future<void> cambiarFechaPago(DateTime val) async {
+  Future<void> cambiarFechaPago(String val) async {
     final Tarjeta tarjetaActual = _tarjetaActual.value;
     _tarjetaActual.value = _tarjetaActual.value.copyWith(
       titulo: tarjetaActual.titulo,
@@ -115,8 +115,8 @@ class TarjetaController extends GetxController {
       expiracion: tarjetaActual.expiracion,
       codigo: tarjetaActual.codigo,
       color: tarjetaActual.color,
-      fechaCorte: tarjetaActual.fechaCorte,
-      fechaPago: val.toString(),
+      diaCorte: tarjetaActual.diaCorte,
+      diaPago: val,
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../controllers/tarjeta_controller.dart';
 import '../../utils/fecha_utils.dart';
@@ -39,8 +40,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     final MaskedTextController codigoController =
         MaskedTextController(mask: '0000');
 
-    final TextEditingController fechaCorteController = TextEditingController();
-    final TextEditingController fechaPagoController = TextEditingController();
+    final TextEditingController diaCorteController = TextEditingController();
+    final TextEditingController diaPagoController = TextEditingController();
 
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
@@ -72,16 +73,16 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
 
     Future<void> cambiarFechaCorte(DateTime val) async {
       final String fechaFormateada =
-          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
-      fechaCorteController.text = fechaFormateada;
-      await tarjetaController.cambiarFechaCorte(val);
+          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 'dia');
+      diaCorteController.text = fechaFormateada;
+      await tarjetaController.cambiarFechaCorte(fechaFormateada);
     }
 
     Future<void> cambiarFechaPago(DateTime val) async {
       final String fechaFormateada =
-          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 3);
-      fechaPagoController.text = fechaFormateada;
-      await tarjetaController.cambiarFechaPago(val);
+          FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 'dia');
+      diaPagoController.text = fechaFormateada;
+      await tarjetaController.cambiarFechaPago(fechaFormateada);
     }
 
     Future<void> limpiarFormulario() async {
@@ -90,8 +91,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       titularController.text = '';
       expiracionController.text = '';
       codigoController.text = '';
-      fechaCorteController.text = '';
-      fechaPagoController.text = '';
+      diaCorteController.text = '';
+      diaPagoController.text = '';
       await tarjetaController.limpiarTarjetaActual();
     }
 
@@ -265,18 +266,18 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               child: Column(
                                 children: <Widget>[
                                   const InputLabel(
-                                    texto: 'Fecha de corte',
+                                    texto: 'Día de corte',
                                   ),
                                   TextFormField(
                                     textInputAction: TextInputAction.next,
                                     readOnly: true,
                                     decoration: const InputDecoration(
-                                      hintText: 'MMM/DD',
+                                      hintText: 'DD',
                                     ),
-                                    controller: fechaCorteController,
+                                    controller: diaCorteController,
                                     validator: (String? val) {
                                       if (val!.isEmpty) {
-                                        return 'Seleccione una fecha de corte';
+                                        return 'Introduzca día de corte';
                                       }
                                       return null;
                                     },
@@ -285,9 +286,10 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                         context,
                                         locale: picker.LocaleType.es,
                                         pickerModel: CustomMonthPicker(
-                                          currentTime: DateTime.now(),
+                                          currentTime: DateFormat('DD')
+                                              .parse(DateTime.now().toString()),
                                           minTime: DateTime(2023),
-                                          maxTime: DateTime(2050, 12),
+                                          maxTime: DateTime(2023, 1, 28),
                                           locale: picker.LocaleType.es,
                                         ),
                                         onConfirm: (DateTime date) async {
@@ -306,17 +308,17 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               flex: 5,
                               child: Column(
                                 children: <Widget>[
-                                  const InputLabel(texto: 'Fecha de pago'),
+                                  const InputLabel(texto: 'Día de pago'),
                                   TextFormField(
                                     textInputAction: TextInputAction.next,
                                     readOnly: true,
                                     decoration: const InputDecoration(
-                                      hintText: 'MMM/DD',
+                                      hintText: 'DD',
                                     ),
-                                    controller: fechaPagoController,
+                                    controller: diaPagoController,
                                     validator: (String? val) {
                                       if (val!.isEmpty) {
-                                        return 'Seleccione una fecha de pago';
+                                        return 'Introduzca día de pago';
                                       }
                                       return null;
                                     },
@@ -325,9 +327,10 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                                         context,
                                         locale: picker.LocaleType.es,
                                         pickerModel: CustomMonthPicker(
-                                          currentTime: DateTime.now(),
+                                          currentTime: DateFormat('DD')
+                                              .parse(DateTime.now().toString()),
                                           minTime: DateTime(2023),
-                                          maxTime: DateTime(2050, 12),
+                                          maxTime: DateTime(2023, 1, 28),
                                           locale: picker.LocaleType.es,
                                         ),
                                         onConfirm: (DateTime date) async {
@@ -480,6 +483,6 @@ class CustomMonthPicker extends DatePickerModel {
 
   @override
   List<int> layoutProportions() {
-    return <int>[0, 1, 1];
+    return <int>[0, 0, 1];
   }
 }

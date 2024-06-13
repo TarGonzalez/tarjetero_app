@@ -14,8 +14,8 @@ class Tarjeta {
     this.expiracion,
     this.codigo,
     this.color,
-    this.fechaCorte,
-    this.fechaPago,
+    this.diaCorte,
+    this.diaPago,
   });
 
   factory Tarjeta.fromJson(Map<String, dynamic> data) =>
@@ -30,8 +30,8 @@ class Tarjeta {
   String? codigo;
   @ColorConverterHelper()
   Color? color;
-  String? fechaCorte;
-  String? fechaPago;
+  String? diaCorte;
+  String? diaPago;
 
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
 
@@ -42,8 +42,8 @@ class Tarjeta {
     String? expiracion,
     String? codigo,
     Color? color,
-    String? fechaCorte,
-    String? fechaPago,
+    String? diaCorte,
+    String? diaPago,
   }) {
     return Tarjeta(
       titulo: titulo ?? this.titulo,
@@ -52,8 +52,8 @@ class Tarjeta {
       expiracion: expiracion ?? this.expiracion,
       codigo: codigo ?? this.codigo,
       color: color ?? this.color,
-      fechaCorte: fechaCorte ?? this.fechaCorte,
-      fechaPago: fechaPago ?? this.fechaPago,
+      diaCorte: diaCorte ?? this.diaCorte,
+      diaPago: diaPago ?? this.diaPago,
     );
   }
 }

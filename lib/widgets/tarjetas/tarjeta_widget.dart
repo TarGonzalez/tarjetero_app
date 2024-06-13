@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import '../../helpers/tarjeta_helper.dart';
 import '../../models/tarjeta.dart';
-import '../../utils/fecha_utils.dart';
 
 class TarjetaWidget extends StatelessWidget {
   const TarjetaWidget({
@@ -76,7 +75,7 @@ class TarjetaWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Fecha de corte',
+                            'Día de corte',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -86,13 +85,8 @@ class TarjetaWidget extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                            tarjetaActual.fechaCorte != null
-                                ? FechaUtils.getFormatoFecha(
-                                    fecha: FechaUtils.parseFecha(
-                                        fechaStr: tarjetaActual.fechaCorte!),
-                                    conHora: false,
-                                    tipo: 3,
-                                  )
+                            tarjetaActual.diaCorte != null
+                                ? tarjetaActual.diaCorte!
                                 : '',
                             style: Theme.of(context)
                                 .textTheme
@@ -107,7 +101,7 @@ class TarjetaWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            'Fecha de pago',
+                            'Día de pago',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -117,13 +111,8 @@ class TarjetaWidget extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                            tarjetaActual.fechaPago != null
-                                ? FechaUtils.getFormatoFecha(
-                                    fecha: FechaUtils.parseFecha(
-                                        fechaStr: tarjetaActual.fechaPago!),
-                                    conHora: false,
-                                    tipo: 3,
-                                  )
+                            tarjetaActual.diaPago != null
+                                ? tarjetaActual.diaPago!
                                 : '',
                             style: Theme.of(context)
                                 .textTheme
@@ -182,6 +171,7 @@ class TarjetaWidget extends StatelessWidget {
                                 .headlineSmall!
                                 .copyWith(
                                   color: Colors.white,
+                                  fontSize: 16,
                                 ),
                           ),
                           Text(
@@ -207,6 +197,7 @@ class TarjetaWidget extends StatelessWidget {
                                 .headlineSmall!
                                 .copyWith(
                                   color: Colors.white,
+                                  fontSize: 16,
                                 ),
                           ),
                           Text(
