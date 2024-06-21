@@ -6,8 +6,9 @@ import '../controllers/tarjeta_controller.dart';
 import '../routes/routes_names.dart';
 import '../themes/color_palette.dart';
 import 'tabs/tab_cards.dart';
-import 'tabs/tab_compras.dart';
+import 'tabs/tab_gastos.dart';
 import 'tabs/tab_home.dart';
+import 'tabs/tab_proyeccion.dart';
 import 'tabs/tab_settings.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -20,31 +21,52 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
   IconData? _iconoTab;
+  String titulo = 'Home';
 
-  Widget _setTab() {
-    switch (_selectedIndex) {
+  void _setTab(int index) {
+    // Widget tab = const SizedBox();
+    switch (index) {
+      case 0:
+        _iconoTab = Icons.home;
+        // tab = const TabHome();
+        titulo = 'Home';
+        break;
       case 1:
         _iconoTab = Icons.add_card_rounded;
-        return const TabCards();
+        // tab = const TabCards();
+        titulo = 'Tarjetas';
+        break;
       case 2:
         _iconoTab = Icons.post_add_rounded;
-        return const TabCompras();
+        // tab = const TabGastos();
+        titulo = 'Gastos';
+        break;
       case 3:
-        return const TabSettings();
+        // tab = const TabProyeccion();
+        titulo = 'Proyección';
+        break;
+      case 4:
+        // tab = const TabSettings();
+        titulo = 'Configuraciones';
+        break;
       default:
     }
-    return const TabHome();
+    setState(() {
+      _selectedIndex = index;
+    });
+    // return tab;
   }
 
   Future<void> _irNuevaPantalla() async {
     switch (_selectedIndex) {
       case 1:
-        final TarjetaController tarjetaController = Get.find<TarjetaController>();
+        final TarjetaController tarjetaController =
+            Get.find<TarjetaController>();
         await tarjetaController.limpiarTarjetaActual();
         Get.toNamed(nameNuevaTarjetaScreen);
         break;
       case 2:
-        Get.toNamed(nameNuevaCompraScreen);
+        Get.toNamed(nameNuevoGastoScreen);
         break;
       default:
     }
@@ -53,13 +75,36 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(title: Text(titulo)),
       body: SafeArea(
         child: Stack(
           children: <Widget>[
             SizedBox.expand(
               child: SingleChildScrollView(
-                child: _setTab(),
+                child: Column(
+                  children: <Widget>[
+                    Visibility(
+                      visible: _selectedIndex == 0,
+                      child: const TabHome(),
+                    ),
+                    Visibility(
+                      visible: _selectedIndex == 1,
+                      child: const TabCards(),
+                    ),
+                    Visibility(
+                      visible: _selectedIndex == 2,
+                      child: const TabGastos(),
+                    ),
+                    Visibility(
+                      visible: _selectedIndex == 3,
+                      child: const TabProyeccion(),
+                    ),
+                    Visibility(
+                      visible: _selectedIndex == 4,
+                      child: const TabSettings(),
+                    ),
+                  ],
+                ),
               ),
             ),
             Visibility(
@@ -90,20 +135,18 @@ class _TabsScreenState extends State<TabsScreen> {
         domeCircleColor: colorPrimario,
         selectedIndex: _selectedIndex,
         onTabChange: (int clickedIndex) {
-          setState(() {
-            _selectedIndex = clickedIndex;
-          });
+          _setTab(clickedIndex);
         },
         tabs: <MoltenTab>[
           MoltenTab(
             icon: const Icon(Icons.home),
             selectedColor: colorOro,
-            title: Text(
-              'Home',
-              style: TextStyle(
-                  color: _selectedIndex == 0 ? colorOro : Colors.white),
-            ),
-            unselectedColor: Colors.white,
+            // title: Text(
+            //   'Home',
+            //   style: TextStyle(
+            //       color: _selectedIndex == 0 ? colorOro : Colors.white),
+            // ),
+            // unselectedColor: Colors.white,
           ),
           MoltenTab(
             icon: const Icon(Icons.credit_card),
@@ -111,6 +154,10 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
           MoltenTab(
             icon: const Icon(Icons.attach_money_outlined),
+            selectedColor: colorOro,
+          ),
+          MoltenTab(
+            icon: const Icon(Icons.access_time_filled_rounded),
             selectedColor: colorOro,
           ),
           MoltenTab(

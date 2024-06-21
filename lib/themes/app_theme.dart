@@ -4,6 +4,22 @@ import 'color_palette.dart';
 final ThemeData themeLight = ThemeData(
   useMaterial3: true,
   primaryColor: colorPrimario,
+  primaryColorDark: colorSecundario,
+  primaryColorLight: colorLight,
+  scaffoldBackgroundColor: colorBackground,
+  colorScheme: const ColorScheme(
+    brightness: Brightness.dark,
+    primary: colorPrimario,
+    onPrimary: colorPrimario,
+    secondary: colorSecundario,
+    onSecondary: colorSecundarioDark,
+    error: Colors.red,
+    onError: Colors.red,
+    background: colorBackground,
+    onBackground: colorBackground,
+    surface: Colors.yellow,
+    onSurface: Colors.yellow,
+  ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,
     backgroundColor: colorPrimario,
@@ -58,13 +74,13 @@ final ThemeData themeLight = ThemeData(
     contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     border: OutlineInputBorder(), // Define el borde de los inputs
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: colorGris400),
+      borderSide: BorderSide(color: colorSecundarioDarker),
     ),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.red),
     ),
     hintStyle: TextStyle(
-      color: colorGris400,
+      color: colorSecundarioDarker,
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -75,47 +91,47 @@ final ThemeData themeLight = ThemeData(
   textTheme: const TextTheme(
     headlineSmall: TextStyle(
       fontSize: 18,
-      color: Colors.black54,
+      color: colorTexto,
       fontWeight: FontWeight.w500,
     ),
     headlineMedium: TextStyle(
       fontSize: 20,
-      color: Colors.black54,
+      color: colorTexto,
       fontWeight: FontWeight.w600,
     ),
     headlineLarge: TextStyle(
       fontSize: 24,
-      color: Colors.black87,
+      color: colorTexto,
       fontWeight: FontWeight.w600,
     ),
     bodySmall: TextStyle(
       fontSize: 12,
-      color: Colors.black87,
+      color: colorTexto,
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: TextStyle(
       fontSize: 14,
-      color: Colors.black87,
+      color: colorTexto,
       fontWeight: FontWeight.w400,
     ),
     bodyLarge: TextStyle(
       fontSize: 16,
-      color: Colors.black87,
+      color: colorTexto,
       fontWeight: FontWeight.w400,
     ),
     displaySmall: TextStyle(
       fontSize: 12,
-      color: colorGris400,
+      color: colorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
     displayMedium: TextStyle(
       fontSize: 14,
-      color: colorGris400,
+      color: colorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
       fontSize: 15,
-      color: colorGris400,
+      color: colorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
   ),
@@ -123,10 +139,25 @@ final ThemeData themeLight = ThemeData(
 
 final ThemeData themeDark = ThemeData(
   useMaterial3: true,
-  primaryColor: colorPrimario,
+  primaryColor: darkColorPrimarioDark,
+  primaryColorLight: darkColorLight,
+  scaffoldBackgroundColor: darkColorBackground,
+  colorScheme: const ColorScheme(
+    brightness: Brightness.dark,
+    primary: darkColorPrimarioDark,
+    onPrimary: darkColorPrimarioDark,
+    secondary: darkColorSecundario,
+    onSecondary: darkColorSecundarioDark,
+    error: Colors.red,
+    onError: Colors.red,
+    background: darkColorBackground,
+    onBackground: darkColorBackground,
+    surface: Colors.yellow,
+    onSurface: Colors.yellow,
+  ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,
-    backgroundColor: Colors.black87,
+    backgroundColor: darkColorPrimarioDark,
     titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20,
@@ -136,9 +167,9 @@ final ThemeData themeDark = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color?>(colorPrimario),
+      foregroundColor: MaterialStateProperty.all<Color?>(darkColorPrimarioDark),
       side: MaterialStateProperty.all<BorderSide?>(
-        const BorderSide(color: colorPrimario),
+        const BorderSide(color: darkColorPrimarioDark),
       ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
@@ -157,7 +188,7 @@ final ThemeData themeDark = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color?>(
-        colorPrimario,
+        darkColorPrimarioDark,
       ),
       foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -178,13 +209,13 @@ final ThemeData themeDark = ThemeData(
     contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     border: OutlineInputBorder(), // Define el borde de los inputs
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: colorGris400),
+      borderSide: BorderSide(color: darkColorSecundarioDarker),
     ),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.red),
     ),
     hintStyle: TextStyle(
-      color: colorGris400,
+      color: darkColorSecundarioDarker,
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -195,47 +226,47 @@ final ThemeData themeDark = ThemeData(
   textTheme: const TextTheme(
     headlineSmall: TextStyle(
       fontSize: 18,
-      color: Colors.black54,
+      color: darkColorTexto,
       fontWeight: FontWeight.w500,
     ),
     headlineMedium: TextStyle(
       fontSize: 20,
-      color: Colors.black54,
+      color: darkColorTexto,
       fontWeight: FontWeight.w600,
     ),
     headlineLarge: TextStyle(
       fontSize: 24,
-      color: Colors.black87,
+      color: darkColorTexto,
       fontWeight: FontWeight.w600,
     ),
     bodySmall: TextStyle(
       fontSize: 12,
-      color: Colors.black87,
+      color: darkColorTexto,
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: TextStyle(
       fontSize: 14,
-      color: Colors.black87,
+      color: darkColorTexto,
       fontWeight: FontWeight.w400,
     ),
     bodyLarge: TextStyle(
       fontSize: 16,
-      color: Colors.black87,
+      color: darkColorTexto,
       fontWeight: FontWeight.w400,
     ),
     displaySmall: TextStyle(
       fontSize: 12,
-      color: colorGris400,
+      color: darkColorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
     displayMedium: TextStyle(
       fontSize: 14,
-      color: colorGris400,
+      color: darkColorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
       fontSize: 15,
-      color: colorGris400,
+      color: darkColorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
   ),
