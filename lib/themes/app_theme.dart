@@ -135,6 +135,15 @@ final ThemeData themeLight = ThemeData(
       fontWeight: FontWeight.w400,
     ),
   ),
+  iconTheme: const IconThemeData(
+    color: colorPrimario,
+  ),
+  dividerTheme: DividerThemeData(
+    color: colorPrimario.withOpacity(0.2),
+    endIndent: 0,
+    indent: 0,
+    space: 0,
+  ),
 );
 
 final ThemeData themeDark = ThemeData(
@@ -269,5 +278,14 @@ final ThemeData themeDark = ThemeData(
       color: darkColorSecundarioDarker,
       fontWeight: FontWeight.w400,
     ),
+  ),
+  iconTheme: const IconThemeData(
+    color: Colors.white
+  ),
+  dividerTheme: const DividerThemeData(
+    color: Colors.white,
+    endIndent: 0,
+    indent: 0,
+    space: 0,
   ),
 );
