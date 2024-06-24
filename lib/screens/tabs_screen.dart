@@ -81,6 +81,7 @@ class _TabsScreenState extends State<TabsScreen> {
           children: <Widget>[
             SizedBox.expand(
               child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
                 child: Column(
                   children: <Widget>[
                     Visibility(
