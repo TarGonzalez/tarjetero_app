@@ -6,10 +6,12 @@ class SettingItem extends StatelessWidget {
     required this.leadingIcon,
     this.titulo,
     this.onTap,
+    this.mostrarTrailing = 'si',
   });
   final IconData leadingIcon;
   final String? titulo;
   final VoidCallback? onTap;
+  final String mostrarTrailing;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,14 @@ class SettingItem extends StatelessWidget {
             leadingIcon,
           ),
         ),
-        trailing: IconTheme(
-          data: Theme.of(context).iconTheme,
-          child: const Icon(
-            Icons.chevron_right_rounded,
-          ),
-        ),
+        trailing: mostrarTrailing == 'si'
+            ? IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: const Icon(
+                  Icons.chevron_right_rounded,
+                ),
+              )
+            : null,
       ),
     );
   }
