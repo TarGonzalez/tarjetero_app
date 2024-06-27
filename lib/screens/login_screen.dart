@@ -3,8 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes_names.dart';
+import '../themes/color_palette.dart';
 import '../widgets/global/global_progress.dart';
 import '/widgets/global/global_button.dart';
+import '/widgets/global/gradiant_app_bar.dart';
 import '/widgets/global/input_label.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,9 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: const GradientAppBar(title: Text('Login'), boxDecoration: ligthLinearGradient),
       body: SafeArea(
         child: SizedBox.expand(
           child: Center(

@@ -6,6 +6,7 @@ import '../controllers/tarjeta_controller.dart';
 import '../routes/routes_names.dart';
 import '../themes/color_palette.dart';
 import '../widgets/global/global_icon_button.dart';
+import '../widgets/global/gradiant_app_bar.dart';
 import 'tabs/tab_cards.dart';
 import 'tabs/tab_gastos.dart';
 import 'tabs/tab_home.dart';
@@ -76,7 +77,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(titulo)),
+      appBar: GradientAppBar(title: Text(titulo), boxDecoration: ligthLinearGradient),
       body: SafeArea(
         child: Stack(
           children: <Widget>[

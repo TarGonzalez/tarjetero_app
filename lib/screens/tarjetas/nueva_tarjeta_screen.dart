@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/tarjeta_controller.dart';
+import '../../themes/color_palette.dart';
 import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
 import '../../widgets/global/global_button.dart';
@@ -116,6 +117,9 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: <Widget>[
+                  Container(
+                    decoration:ligthLinearGradient,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 90.0,
