@@ -5,6 +5,7 @@ import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import '../controllers/tarjeta_controller.dart';
 import '../routes/routes_names.dart';
 import '../themes/color_palette.dart';
+import '../widgets/global/global_icon_button.dart';
 import 'tabs/tab_cards.dart';
 import 'tabs/tab_gastos.dart';
 import 'tabs/tab_home.dart';
@@ -81,7 +82,8 @@ class _TabsScreenState extends State<TabsScreen> {
           children: <Widget>[
             SizedBox.expand(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
                 child: Column(
                   children: <Widget>[
                     Visibility(
@@ -113,18 +115,9 @@ class _TabsScreenState extends State<TabsScreen> {
               child: Positioned(
                 bottom: 10,
                 right: 30,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: colorPrimario,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: IconButton(
-                    icon: Icon(
-                      _iconoTab,
-                      color: colorOro,
-                    ),
-                    onPressed: () => _irNuevaPantalla(),
-                  ),
+                child: GlobalIconButton(
+                  icono: _iconoTab,
+                  onPressed: () => _irNuevaPantalla(),
                 ),
               ),
             ),
@@ -132,8 +125,8 @@ class _TabsScreenState extends State<TabsScreen> {
         ),
       ),
       bottomNavigationBar: MoltenBottomNavigationBar(
-        barColor: colorPrimario,
-        domeCircleColor: colorPrimario,
+        barColor: Theme.of(context).primaryColor,
+        domeCircleColor: Theme.of(context).primaryColor,
         selectedIndex: _selectedIndex,
         onTabChange: (int clickedIndex) {
           _setTab(clickedIndex);
