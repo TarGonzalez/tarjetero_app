@@ -17,6 +17,7 @@ const Color colorLight = Color.fromRGBO(236, 235, 252, 1);
 const Color colorBackground = Color.fromRGBO(255, 255, 255, 1);
 const Color colorTexto = Color.fromRGBO(0, 0, 0, 1);
 
+const Color darkColorOro = Color.fromRGBO(234, 169, 33, 1);
 // COLORES PARA TEMA OSCURO
 const Color darkColorPrimario = Color.fromRGBO(19, 11, 68, 1);
 const Color darkColorSecundario = Color.fromRGBO(213, 184, 213, 1);

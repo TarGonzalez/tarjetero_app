@@ -10,7 +10,7 @@ final ThemeData themeLight = ThemeData(
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: colorPrimario,
-    onPrimary: colorPrimario,
+    onPrimary: colorOro,
     secondary: colorSecundario,
     onSecondary: colorSecundarioDark,
     error: Colors.red,
@@ -70,6 +70,16 @@ final ThemeData themeLight = ThemeData(
       ),
     ),
   ),
+  // iconButtonTheme: IconButtonThemeData(
+  //   style: ButtonStyle(
+  //     backgroundColor: MaterialStateProperty.all<Color?>(
+  //       colorPrimario,
+  //     ),
+  //     iconColor: MaterialStateProperty.all<Color?>(
+  //       colorOro,
+  //     ),
+  //   ),
+  // ),
   inputDecorationTheme: const InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     border: OutlineInputBorder(), // Define el borde de los inputs
@@ -161,7 +171,7 @@ final ThemeData themeDark = ThemeData(
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: darkColorPrimarioDark,
-    onPrimary: darkColorPrimarioDark,
+    onPrimary: darkColorOro,
     secondary: darkColorSecundario,
     onSecondary: darkColorSecundarioDark,
     error: Colors.red,
@@ -221,6 +231,16 @@ final ThemeData themeDark = ThemeData(
       ),
     ),
   ),
+  // iconButtonTheme: IconButtonThemeData(
+  //   style: ButtonStyle(
+  //     backgroundColor: MaterialStateProperty.all<Color?>(
+  //       darkColorPrimario,
+  //     ),
+  //     iconColor: MaterialStateProperty.all<Color?>(
+  //       darkColorOro,
+  //     ),
+  //   ),
+  // ),
   inputDecorationTheme: const InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     border: OutlineInputBorder(), // Define el borde de los inputs
