@@ -18,7 +18,7 @@ final ThemeData themeLight = ThemeData(
     background: colorBackground,
     onBackground: colorBackground,
     surface: Colors.yellow,
-    onSurface: Colors.yellow,
+    onSurface: colorSecundarioDark,
   ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,
@@ -76,11 +76,18 @@ final ThemeData themeLight = ThemeData(
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: colorSecundarioDarker),
     ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: colorPrimarioDark),
+    ),
+    outlineBorder: BorderSide(color: colorSecundarioDarker),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.red),
     ),
     hintStyle: TextStyle(
       color: colorSecundarioDarker,
+    ),
+    counterStyle: TextStyle(
+      color: colorSecundario,
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -162,7 +169,7 @@ final ThemeData themeDark = ThemeData(
     background: darkColorBackground,
     onBackground: darkColorBackground,
     surface: Colors.yellow,
-    onSurface: Colors.yellow,
+    onSurface: colorOro,
   ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,
@@ -220,12 +227,18 @@ final ThemeData themeDark = ThemeData(
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: darkColorSecundarioDarker),
     ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: darkColorTexto),
+    ),
+    outlineBorder: BorderSide(color: darkColorSecundarioDarker),
     errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red),
+      borderSide: BorderSide(color: colorOro),
     ),
     hintStyle: TextStyle(
       color: darkColorSecundarioDarker,
     ),
+    counterStyle: TextStyle(color: darkColorTexto),
+    errorStyle: TextStyle(color: colorOro),
   ),
   checkboxTheme: CheckboxThemeData(
     shape: RoundedRectangleBorder(
