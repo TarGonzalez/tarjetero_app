@@ -1,0 +1,7 @@
+{
+  "APP_NAME":"[DEV] Tarjetero",
+  "APP_MODE":"development",
+  "API_KEY":"",
+  "API_URL":"localhost",
+  "BASE_PATH":"api"
+}

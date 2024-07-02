@@ -1,0 +1,7 @@
+{
+  "APP_NAME":"[DEV] Tarjetero",
+  "APP_MODE":"development",
+  "API_KEY":"",
+  "API_URL":"192.168.0.191:82/idt-berhok-mg-api",
+  "BASE_PATH":"public/index.php"
+}
