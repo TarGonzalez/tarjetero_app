@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls, always_specify_types
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import '../helpers/logger_helper.dart';
 import '../utils/utils.dart';
@@ -59,6 +61,16 @@ class ApiHandler {
 
       return _getResponseData(response, modulo, endpoint);
     } on DioException catch (dioError) {
+      if (dioError.type == DioExceptionType.badResponse) {
+        // print('Error de servidor: ${dioError.response?.statusCode}');
+        throw Exception(_obtenerMensajeError('E02'));
+      }
+      if (dioError.type == DioExceptionType.cancel) {
+        throw Exception(_obtenerMensajeError('E03'));
+      }
+      if (dioError.error is SocketException) {
+        throw Exception(_obtenerMensajeError('E01'));
+      }
       if (dioError.response != null) {
         LoggerHelper.error('Respuesta del servidor con error:');
         LoggerHelper.error(
@@ -106,6 +118,16 @@ class ApiHandler {
 
       return _getResponseData(response, modulo, endpoint);
     } on DioException catch (dioError) {
+      if (dioError.type == DioExceptionType.badResponse) {
+        // print('Error de servidor: ${dioError.response?.statusCode}');
+        throw Exception(_obtenerMensajeError('E02'));
+      }
+      if (dioError.type == DioExceptionType.cancel) {
+        throw Exception(_obtenerMensajeError('E03'));
+      }
+      if (dioError.error is SocketException) {
+        throw Exception(_obtenerMensajeError('E01'));
+      }
       if (dioError.response != null) {
         LoggerHelper.error('Respuesta del servidor con error:');
         LoggerHelper.error(
@@ -153,6 +175,15 @@ class ApiHandler {
         break;
       case '500':
         mensaje += ', Error interno de servidor';
+        break;
+      case 'E01':
+        mensaje +=
+            ', No se pudo conectar con el servidor. Verifica tu conexión a Internet';
+        break;
+      case 'E02':
+        mensaje += ', Error de servidor';
+      case 'E03':
+        mensaje += ', Solicitud cancelada';
         break;
       default:
         mensaje += ', Ocurrio un error en la petición';
