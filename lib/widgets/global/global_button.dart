@@ -65,10 +65,38 @@ class GlobalButton extends StatelessWidget {
     );
   }
 
+  Widget botonSinBorde() {
+    return TextButton(
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Visibility(
+            visible: iconoIzquierda != null,
+            child: iconoIzquierda != null ? iconoIzquierda! : const SizedBox(),
+          ),
+          Expanded(
+            child: Text(
+              texto,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Visibility(
+            visible: iconoDerecha != null,
+            child: iconoDerecha != null ? iconoDerecha! : const SizedBox(),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (accion == 'primaria') {
       return botonPrimario();
+    }
+    if (accion == 'sinBorde') {
+      return botonSinBorde();
     }
     return botonSecundario();
   }
