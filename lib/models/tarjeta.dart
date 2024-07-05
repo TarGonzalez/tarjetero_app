@@ -32,7 +32,6 @@ class Tarjeta {
   Color? color;
   String? diaCorte;
   String? diaPago;
-
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
 
   Tarjeta copyWith({
