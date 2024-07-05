@@ -11,4 +11,8 @@ class Utils {
       return false;
     }
   }
+
+  static String limpiarException(Object e) {
+    return e.toString().replaceAll('Exception: ', '');
+  }
 }
