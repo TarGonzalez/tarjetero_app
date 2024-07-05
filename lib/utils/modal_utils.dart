@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ModalUtils {
-  static Future<void> mostrarBottomShet(
+  static Future<void> mostrarBottomSheet(
       {String? titulo, double? altura, Widget? contenido}) {
     return showModalBottomSheet(
       context: Get.context!,
@@ -25,11 +25,11 @@ class ModalUtils {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
-              ),
+              // decoration: const BoxDecoration(
+              //   border: Border(
+              //     bottom: BorderSide(color: Colors.grey),
+              //   ),
+              // ),
               child: Text(
                 titulo ?? 'Sin titulo',
                 style: Theme.of(context).textTheme.headlineSmall,

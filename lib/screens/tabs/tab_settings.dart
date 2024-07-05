@@ -52,7 +52,7 @@ class _TabSettingsState extends State<TabSettings> {
       ),
     ];
     Future<void> mostrarModalTemas() async {
-      ModalUtils.mostrarBottomShet(
+      ModalUtils.mostrarBottomSheet(
         titulo: 'Temas',
         altura: Get.height * 0.4,
         contenido: ListView.separated(

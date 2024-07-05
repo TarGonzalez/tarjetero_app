@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
     // Inicializamos los controllers
     Get.put(MainController());
     return GetMaterialApp(
-      initialRoute: nameTabsScreen,
+      initialRoute: nameLoginScreen,
       getPages: rutas,
       theme: themeLight,
       darkTheme: themeDark,
