@@ -21,7 +21,7 @@ class Loader {
               child: Padding(
                 padding: paddingLoader ?? const EdgeInsets.all(100.0),
                 child: Lottie.asset(
-                  urlAsset ?? AppAssets().jsonCreditCards,
+                  urlAsset ?? AppAssets.jsonCreditCards,
                   fit: BoxFit.cover,
                 ),
               ),
