@@ -70,6 +70,27 @@ final ThemeData themeLight = ThemeData(
       ),
     ),
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color?>(Colors.blue[200]),
+      // side: MaterialStateProperty.all<BorderSide?>(
+      //   const BorderSide(color: colorPrimario),
+      // ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(EdgeInsets.zero),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 35),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 35),
+      ),
+    ),
+  ),
   // iconButtonTheme: IconButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: MaterialStateProperty.all<Color?>(
@@ -228,6 +249,27 @@ final ThemeData themeDark = ThemeData(
       ),
       maximumSize: MaterialStateProperty.all<Size?>(
         const Size(double.infinity, 50),
+      ),
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color?>(Colors.blue[200]),
+      // side: MaterialStateProperty.all<BorderSide?>(
+      //   const BorderSide(color: colorPrimario),
+      // ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              6.0), // Cambia aquí el radio de las esquinas
+        ),
+      ),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(EdgeInsets.zero),
+      minimumSize: MaterialStateProperty.all<Size?>(
+        const Size(130, 35),
+      ),
+      maximumSize: MaterialStateProperty.all<Size?>(
+        const Size(double.infinity, 35),
       ),
     ),
   ),
