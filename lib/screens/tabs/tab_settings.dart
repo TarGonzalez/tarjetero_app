@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../themes/app_theme.dart';
+import '../../controllers/app_controller.dart';
+import '../../controllers/login_controller.dart';
+import '../../routes/routes_names.dart';
 import '../../utils/modal_utils.dart';
+import '../../utils/utils.dart';
+import '../../widgets/cuenta_widget.dart';
+import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/settings/setting_item.dart';
 
 class TabSettings extends StatefulWidget {
@@ -13,20 +18,39 @@ class TabSettings extends StatefulWidget {
 }
 
 class _TabSettingsState extends State<TabSettings> {
-  void cambiarTheme({required String themeMode}) {
-    if (themeMode == 'default') {
-      // final Brightness brightness =
-      //     WidgetsBinding.instance.platformDispatcher.platformBrightness;
-      // themeMode = brightness == Brightness.dark ? 'oscuro' : 'light';
-      final int hour = DateTime.now().hour;
-      themeMode = hour >= 19 || hour < 7 ? 'oscuro' : 'light';
+  final AppController appController = Get.find<AppController>();
+  Future<void> cambiarTheme({required String themeMode}) async {
+    try {
+      await Utils.cambiarTheme(themeMode: themeMode);
+      Get.back();
+    } catch (e) {
+      ModalUtils.mostrarBottomSheet(
+        titulo: 'Opps!',
+        altura: Get.height * 0.6,
+        contenido: Center(
+          child: GlobalBannerInfo(
+            informacion: Utils.limpiarException(e),
+          ),
+        ),
+      );
     }
-    if (themeMode == 'light') {
-      Get.changeTheme(themeLight);
-    } else {
-      Get.changeTheme(themeDark);
+  }
+
+  Future<void> cerrarSesion() async {
+    try {
+      await Get.find<LoginController>().sesionEliminarDatos();
+      Get.offAllNamed(nameLoginScreen);
+    } catch (e) {
+      ModalUtils.mostrarBottomSheet(
+        titulo: 'Opps!',
+        altura: Get.height * 0.6,
+        contenido: Center(
+          child: GlobalBannerInfo(
+            informacion: Utils.limpiarException(e),
+          ),
+        ),
+      );
     }
-    Get.back();
   }
 
   @override
@@ -35,19 +59,19 @@ class _TabSettingsState extends State<TabSettings> {
       SettingItem(
         titulo: 'Sistema defaut',
         leadingIcon: Icons.perm_device_information_rounded,
-        onTap: () => cambiarTheme(themeMode: 'default'),
+        onTap: () async => cambiarTheme(themeMode: 'default'),
         mostrarTrailing: 'no',
       ),
       SettingItem(
         titulo: 'Claro',
         leadingIcon: Icons.light_mode,
-        onTap: () => cambiarTheme(themeMode: 'light'),
+        onTap: () async => cambiarTheme(themeMode: 'light'),
         mostrarTrailing: 'no',
       ),
       SettingItem(
         titulo: 'Oscuro',
         leadingIcon: Icons.dark_mode,
-        onTap: () => cambiarTheme(themeMode: 'oscuro'),
+        onTap: () async => cambiarTheme(themeMode: 'oscuro'),
         mostrarTrailing: 'no',
       ),
     ];
@@ -85,17 +109,29 @@ class _TabSettingsState extends State<TabSettings> {
         leadingIcon: Icons.light_mode,
         onTap: () => mostrarModalTemas(),
       ),
+      SettingItem(
+        titulo: 'Cerrar sesión',
+        leadingIcon: Icons.logout_outlined,
+        onTap: () async => cerrarSesion(),
+        mostrarTrailing: 'no',
+      ),
     ];
 
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: settingsOpciones.length,
-      itemBuilder: (BuildContext context, int index) {
-        return settingsOpciones[index];
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider();
-      },
+    return Column(
+      children: <Widget>[
+        const CuentaWidget(),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: settingsOpciones.length,
+          itemBuilder: (BuildContext context, int index) {
+            return settingsOpciones[index];
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider();
+          },
+        ),
+      ],
     );
   }
 }

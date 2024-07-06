@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else {
           ModalUtils.mostrarBottomSheet(
             titulo: 'Opps!',
-            altura: Get.height * 0.5,
+            altura: Get.height * 0.6,
             contenido: const GlobalBannerInfo(
               informacion: 'No se pudo terminar su acción',
             ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       ModalUtils.mostrarBottomSheet(
         titulo: 'Opps!',
-        altura: Get.height * 0.5,
+        altura: Get.height * 0.6,
         contenido: Center(
           child: GlobalBannerInfo(
             informacion: Utils.limpiarException(e),
