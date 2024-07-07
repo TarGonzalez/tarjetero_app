@@ -9,7 +9,7 @@ class NuevoGastoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: GradientAppBar(
-        title: Text('Nuevo Gasto'),
+        title: 'Nuevo Gasto',
       ),
       body: Center(
         child: Text('Pantalla para dar de alta nuevo gasto'),

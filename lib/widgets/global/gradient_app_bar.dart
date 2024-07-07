@@ -11,7 +11,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.appBarHeight = 56.0,
   });
-  final Widget title;
+  final String title;
   final double appBarHeight;
 
   @override
@@ -27,7 +27,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
                 : darkLinearGradient),
           ),
         ),
-        title: title,
+        title: Text(title),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

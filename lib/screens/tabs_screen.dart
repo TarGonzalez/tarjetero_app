@@ -78,7 +78,7 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GradientAppBar(
-        title: Text(titulo),
+        title: titulo,
       ),
       body: SafeArea(
         child: Stack(

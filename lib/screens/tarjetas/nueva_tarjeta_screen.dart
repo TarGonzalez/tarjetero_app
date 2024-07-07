@@ -441,7 +441,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                           ],
                         ),
                         setEspaciador(),
-                        const InputLabel(texto: '´Marca'),
+                        const InputLabel(texto: 'Marca'),
                         TextFormField(
                           textInputAction: TextInputAction.next,
                         ),
@@ -463,7 +463,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         child: GlobalButton(
           texto: 'Guardar',
           onPressed: validarFormAltaTarjeta,
