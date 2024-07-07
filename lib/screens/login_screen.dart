@@ -26,6 +26,13 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginController loginCtr = Get.find<LoginController>();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    usuarioCtr.dispose();
+    passwordCtr.dispose();
+    super.dispose();
+  }
+
   Future<void> _verificarDatos() async {
     try {
       if (formKey.currentState!.validate()) {
@@ -71,18 +78,22 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = true;
     });
-    await Future<void>.delayed(const Duration(milliseconds: 2500));
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
     setState(() {
       _isLoading = false;
     });
     Get.offNamed(nameTabsScreen);
   }
 
+  Future<void> _irRegistro() async {
+    Get.toNamed(nameRegisterScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const GradientAppBar(
-        title: Text('Login'),
+        title: 'Login',
       ),
       body: SafeArea(
         child: SizedBox.expand(
@@ -94,27 +105,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(child: InputLabel(texto: 'Usuario')),
-                    TextFormField(
-                      controller: usuarioCtr,
-                      validator: (String? val) {
-                        if (val!.isEmpty) {
-                          return 'Usuario es necesario';
-                        }
-                        return null;
-                      },
+                    const InputLabel(texto: 'Usuario'),
+                    SizedBox(
+                      height: 74,
+                      child: TextFormField(
+                        controller: usuarioCtr,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? val) {
+                          if (val!.isEmpty) {
+                            return 'Usuario es necesario';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const MaxGap(30),
                     const InputLabel(texto: 'Password'),
-                    TextFormField(
-                      controller: passwordCtr,
-                      obscureText: true,
-                      validator: (String? val) {
-                        if (val!.isEmpty) {
-                          return 'Password es necesario';
-                        }
-                        return null;
-                      },
+                    SizedBox(
+                      height: 74,
+                      child: TextFormField(
+                        controller: passwordCtr,
+                        textInputAction: TextInputAction.done,
+                        obscureText: true,
+                        validator: (String? val) {
+                          if (val!.isEmpty) {
+                            return 'Password es necesario';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const MaxGap(30),
                     AnimatedSwitcher(
@@ -149,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child: GlobalButton(
                                         accion: 'sinBorde',
                                         texto: 'Registrarse',
-                                        onPressed: _irHome,
+                                        onPressed: _irRegistro,
                                       ),
                                     ),
                                   ],
