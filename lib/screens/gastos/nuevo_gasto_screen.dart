@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/color_palette.dart';
-import '../../widgets/global/gradiant_app_bar.dart';
+import '../../widgets/global/gradient_app_bar.dart';
 
 class NuevoGastoScreen extends StatelessWidget {
   const NuevoGastoScreen({super.key});
@@ -10,7 +9,8 @@ class NuevoGastoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: GradientAppBar(
-          title: Text('Nuevo Gasto'), boxDecoration: ligthLinearGradient),
+        title: Text('Nuevo Gasto'),
+      ),
       body: Center(
         child: Text('Pantalla para dar de alta nuevo gasto'),
       ),

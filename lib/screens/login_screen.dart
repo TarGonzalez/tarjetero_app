@@ -4,13 +4,12 @@ import 'package:get/get.dart';
 
 import '/controllers/login_controller.dart';
 import '/routes/routes_names.dart';
-import '/themes/color_palette.dart';
 import '/utils/modal_utils.dart';
 import '/utils/utils.dart';
 import '/widgets/global/global_banner_info.dart';
 import '/widgets/global/global_button.dart';
 import '/widgets/global/global_progress.dart';
-import '/widgets/global/gradiant_app_bar.dart';
+import '/widgets/global/gradient_app_bar.dart';
 import '/widgets/global/input_label.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -83,7 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const GradientAppBar(
-          title: Text('Login'), boxDecoration: ligthLinearGradient),
+        title: Text('Login'),
+      ),
       body: SafeArea(
         child: SizedBox.expand(
           child: Center(

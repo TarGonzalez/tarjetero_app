@@ -37,11 +37,11 @@ const Color darkColorPrimarioDark = Color.fromRGBO(1, 24, 38, 1);
 const Color darkColorSecundarioDark = Color.fromRGBO(180, 82, 140, 1);
 const Color darkColorSecundarioDarker = Color.fromRGBO(245, 245, 245, 1);
 const Color darkColorLight = Color.fromRGBO(236, 235, 252, 1);
-const Color darkColorBackground = Color.fromRGBO(0, 0, 0, 0.8);
+const Color darkColorBackground = Color.fromRGBO(50, 50, 50, 1);
 const Color darkColorTexto = Color.fromRGBO(255, 255, 255, 1);
 const List<Color> darkColoresGradiantBar = <Color>[
-  darkColorPrimario,
-  darkColorPrimario,
+  darkColorPrimarioDark,
+  darkColorPrimarioDark,
   darkColorSecundario,
 ];
 const BoxDecoration darkLinearGradient = BoxDecoration(
