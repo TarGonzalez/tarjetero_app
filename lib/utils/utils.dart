@@ -50,4 +50,12 @@ class Utils {
     themeMode = hour >= 19 || hour < 7 ? themeTipoDark : themeTipoLight;
     return themeMode;
   }
+
+  static bool validarEmail({required String email}) {
+    const String pattern =
+        r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
+    final RegExp regExp = RegExp(pattern);
+    
+    return regExp.hasMatch(email);
+  }
 }
