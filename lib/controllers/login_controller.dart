@@ -29,6 +29,29 @@ class LoginController extends GetxController {
     return false;
   }
 
+  Future<bool> registrarse({
+    required String nombres,
+    required String apellidos,
+    required String email,
+    required String usuario,
+    required String password,
+  }) async {
+    final Map<String, dynamic> parametros = <String, dynamic>{
+      'nombres': nombres,
+      'apellidos': apellidos,
+      'email': email,
+      'usuario': usuario,
+      'password': password,
+    };
+    // ignore: always_specify_types
+    final response = await ApiHandler().post('auth', 'register', parametros);
+    if (response != null) {
+      await sesionGuardarDatos();
+      return true;
+    }
+    return false;
+  }
+
   Future<void> sesionGuardarDatos() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String theme = prefs.getString('theme') ?? themeTipoDefault;
