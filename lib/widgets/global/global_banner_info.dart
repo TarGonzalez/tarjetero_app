@@ -32,7 +32,7 @@ class GlobalBannerInfo extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          informacion!,
+          informacion ?? '',
           style: Theme.of(Get.context!).textTheme.bodySmall,
         ),
       ],
