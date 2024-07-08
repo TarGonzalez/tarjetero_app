@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/tarjeta.dart';
+import '/helpers/api_handler.dart';
+import '/models/tarjeta.dart';
 
 class TarjetaController extends GetxController {
+  static const String endPoint = 'tarjetas';
   final Rx<Tarjeta> _tarjetaActual = Tarjeta().obs;
   Tarjeta get tarjetaActual => _tarjetaActual.value;
   set tarjetaActual(Tarjeta newValue) => _tarjetaActual.value = newValue;
@@ -122,5 +124,21 @@ class TarjetaController extends GetxController {
 
   Future<void> limpiarTarjetaActual() async {
     tarjetaActual = Tarjeta();
+  }
+
+  Future<List<Tarjeta>> listar({
+    required String clienteId,
+  }) async {
+    List<Tarjeta> tarjetas = <Tarjeta>[];
+    final Map<String, dynamic> parametros = <String, dynamic>{
+      'clienteId': clienteId
+    };
+    // ignore: always_specify_types
+    final response = await ApiHandler().get(endPoint, 'listar', parametros);
+    if (response != null) {
+      // ignore: avoid_dynamic_calls, always_specify_types
+      tarjetas = (response as List).map((r) => Tarjeta.fromJson(r)).toList();
+    }
+    return tarjetas;
   }
 }
