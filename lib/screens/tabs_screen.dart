@@ -22,33 +22,28 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
+  final PageController _pageController = PageController();
   IconData? _iconoTab;
   String titulo = 'Home';
 
   void _setTab(int index) {
-    // Widget tab = const SizedBox();
     switch (index) {
       case 0:
         _iconoTab = Icons.home;
-        // tab = const TabHome();
         titulo = 'Home';
         break;
       case 1:
         _iconoTab = Icons.add_card_rounded;
-        // tab = const TabCards();
         titulo = 'Tarjetas';
         break;
       case 2:
         _iconoTab = Icons.post_add_rounded;
-        // tab = const TabGastos();
         titulo = 'Gastos';
         break;
       case 3:
-        // tab = const TabProyeccion();
         titulo = 'Proyección';
         break;
       case 4:
-        // tab = const TabSettings();
         titulo = 'Configuraciones';
         break;
       default:
@@ -56,7 +51,7 @@ class _TabsScreenState extends State<TabsScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    // return tab;
+    _pageController.jumpToPage(index);
   }
 
   Future<void> _irNuevaPantalla() async {
@@ -83,35 +78,31 @@ class _TabsScreenState extends State<TabsScreen> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            SizedBox.expand(
-              child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
-                child: Column(
-                  children: <Widget>[
-                    Visibility(
-                      visible: _selectedIndex == 0,
-                      child: const TabHome(),
-                    ),
-                    Visibility(
-                      visible: _selectedIndex == 1,
-                      child: const TabCards(),
-                    ),
-                    Visibility(
-                      visible: _selectedIndex == 2,
-                      child: const TabGastos(),
-                    ),
-                    Visibility(
-                      visible: _selectedIndex == 3,
-                      child: const TabProyeccion(),
-                    ),
-                    Visibility(
-                      visible: _selectedIndex == 4,
-                      child: const TabSettings(),
-                    ),
-                  ],
+            PageView(
+              controller: _pageController,
+              onPageChanged: (int index) {
+                _setTab(index);
+              },
+              children: const <Widget>[
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                  child: TabHome(),
                 ),
-              ),
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                  child: TabCards(),
+                ),
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                  child: TabGastos(),
+                ),
+                SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                    child: TabProyeccion()),
+                SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                    child: TabSettings()),
+              ],
             ),
             Visibility(
               visible: _selectedIndex == 1 || _selectedIndex == 2,
