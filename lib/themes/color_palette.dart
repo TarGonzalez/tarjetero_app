@@ -51,3 +51,11 @@ const BoxDecoration darkLinearGradient = BoxDecoration(
     end: Alignment.bottomRight,
   ),
 );
+// COLORES GLOBALES
+const Color colorRojo = Colors.red;
+const Color colorAzul = Colors.blue;
+const Color colorCyan = Colors.cyan;
+const Color colorCafe = Colors.brown;
+const Color colorRosa = Colors.pink;
+const Color colorMorado = Colors.purple;
+const Color colorLima = Colors.lime;
