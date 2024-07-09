@@ -7,6 +7,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../constants.dart';
+import '../../controllers/app_controller.dart';
 import '../../controllers/tarjeta_controller.dart';
 import '../../helpers/color_helper.dart';
 import '../../themes/color_palette.dart';
@@ -26,6 +28,7 @@ class NuevaTarjetaScreen extends StatefulWidget {
 }
 
 class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
+  final AppController appCtr = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     final TarjetaController tarjetaController = Get.find<TarjetaController>();
@@ -128,9 +131,11 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: <Widget>[
-                  Container(
-                    decoration: ligthLinearGradient,
-                  ),
+                  Obx(() => Container(
+                    decoration: appCtr.theme.value == themeTipoLight
+                ? ligthLinearGradient
+                : darkLinearGradient,
+                  ),),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 90.0,

@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/tarjeta.dart';
+import '../../routes/routes_names.dart';
 import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/global/global_progress.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
-import '../tarjetas/editar_tarjeta_screen.dart';
 
 class TabCards extends StatelessWidget {
   const TabCards({super.key});
@@ -16,7 +16,7 @@ class TabCards extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> irEditar(Tarjeta tarjeta) async {
       Get.find<TarjetaController>().tarjetaActual = tarjeta;
-      Get.to(EditarTarjetaScreen(tarjetaId: tarjeta.tarjetaId!));
+      Get.toNamed(nameEditarTarjetaScreen, arguments: tarjeta.tarjetaId);
     }
 
     return FutureBuilder<List<Tarjeta>>(

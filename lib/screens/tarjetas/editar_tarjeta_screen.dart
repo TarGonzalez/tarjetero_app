@@ -7,6 +7,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../constants.dart';
+import '../../controllers/app_controller.dart';
 import '../../controllers/tarjeta_controller.dart';
 import '../../helpers/color_helper.dart';
 import '../../themes/color_palette.dart';
@@ -19,14 +21,15 @@ import '../../widgets/global/input_label.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
 
 class EditarTarjetaScreen extends StatefulWidget {
-  const EditarTarjetaScreen({super.key, this.tarjetaId});
-  final String? tarjetaId;
+  const EditarTarjetaScreen({super.key});
 
   @override
   State<EditarTarjetaScreen> createState() => _EditarTarjetaScreenState();
 }
 
 class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
+  final AppController appCtr = Get.find<AppController>();
+  final String tarjetaId = Get.arguments as String;
   final TarjetaController tarjetaController = Get.find<TarjetaController>();
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController titularController = TextEditingController();
@@ -154,7 +157,9 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
               background: Stack(
                 children: <Widget>[
                   Container(
-                    decoration: ligthLinearGradient,
+                    decoration: appCtr.theme.value == themeTipoLight
+                        ? ligthLinearGradient
+                        : darkLinearGradient,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -166,7 +171,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
                     child: Obx(
                       () => Center(
                         child: Hero(
-                          tag: widget.tarjetaId!,
+                          tag: tarjetaId,
                           child: TarjetaWidget(
                             alto: double.infinity,
                             ancho: double.infinity,
