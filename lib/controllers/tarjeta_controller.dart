@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/helpers/api_handler.dart';
@@ -17,7 +16,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -31,7 +30,7 @@ class TarjetaController extends GetxController {
       numero: val,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -45,7 +44,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: val,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -59,7 +58,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: val,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -73,21 +72,21 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: val,
+      codigoCvv: int.tryParse(val),
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
     );
   }
 
-  Future<void> cambiarColor(Color val) async {
+  Future<void> cambiarColor(String val) async {
     final Tarjeta tarjetaActual = _tarjetaActual.value;
     _tarjetaActual.value = _tarjetaActual.value.copyWith(
       titulo: tarjetaActual.titulo,
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: val,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -101,7 +100,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: val,
       diaPago: tarjetaActual.diaPago,
@@ -115,7 +114,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigo: tarjetaActual.codigo,
+      codigoCvv: tarjetaActual.codigoCvv,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: val,

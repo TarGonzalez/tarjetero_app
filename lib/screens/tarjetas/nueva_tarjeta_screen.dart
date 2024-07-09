@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
-import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as picker;
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
@@ -10,10 +8,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/tarjeta_controller.dart';
+import '../../helpers/color_helper.dart';
 import '../../themes/color_palette.dart';
 import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
+import '../../utils/modal_utils.dart';
 import '../../widgets/global/global_button.dart';
+import '../../widgets/global/global_seleccion_color.dart';
 import '../../widgets/global/input_label.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
 
@@ -68,8 +69,9 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       await tarjetaController.cambiarCodigo(val);
     }
 
-    Future<void> cambiarColor(Color val) async {
+    Future<void> cambiarColor(String val) async {
       await tarjetaController.cambiarColor(val);
+      Get.back();
     }
 
     Future<void> cambiarFechaCorte(DateTime val) async {
@@ -107,6 +109,15 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       }
     }
 
+    Future<void> abrirColorSeleccion() async {
+      ModalUtils.mostrarBottomSheet(
+        titulo: 'Selecciona tu color favorito',
+        contenido: GlobalSeleccionColor(
+          onTap: (String val) => cambiarColor(val),
+        ),
+      );
+    }
+
     return Scaffold(
       body: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -118,7 +129,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
               background: Stack(
                 children: <Widget>[
                   Container(
-                    decoration:ligthLinearGradient,
+                    decoration: ligthLinearGradient,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -154,39 +165,22 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               ),
                         ),
                         const SizedBox(width: 12),
-                        WheelColorPicker(
-                          onSelect: (Color newColor) async {
-                            await cambiarColor(newColor);
+                        InkWell(
+                          onTap: () {
+                            abrirColorSeleccion();
                           },
-                          behaviour: ButtonBehaviour.clickToOpen,
-                          defaultColor: Colors.lightBlue,
-                          animationConfig: fanLikeAnimationConfig,
-                          // colorList: const <List<Color>>[
-                          //   <Color>[
-                          //     Colors.red,
-                          //     Colors.redAccent,
-                          //     Colors.deepOrange
-                          //   ],
-                          //   <Color>[
-                          //     Colors.black26,
-                          //     Colors.black45,
-                          //     Colors.black87
-                          //   ],
-                          //   <Color>[
-                          //     Colors.blue,
-                          //     Colors.blueAccent,
-                          //     Colors.blueGrey
-                          //   ],
-                          //   <Color>[
-                          //     Colors.deepPurpleAccent,
-                          //     Colors.purpleAccent
-                          //   ],
-                          // ],
-                          colorList: simpleColors,
-                          buttonSize: 40,
-                          pieceHeight: 15,
-                          innerRadius: 80,
-                          stickToButton: false,
+                          child: Obx(
+                            () => Container(
+                              width: 36,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                color: ColorHelper.obtenerColor(
+                                    tarjetaController.tarjetaActual.color ??
+                                        'morado'),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

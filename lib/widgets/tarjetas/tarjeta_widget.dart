@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import '../../helpers/color_helper.dart';
 import '../../helpers/tarjeta_helper.dart';
 import '../../models/tarjeta.dart';
 
@@ -48,7 +49,8 @@ class TarjetaWidget extends StatelessWidget {
                   frontWidget: Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: tarjetaActual.color ?? Colors.lightBlue,
+                      color: ColorHelper.obtenerColor(
+                          tarjetaActual.color ?? 'morado'),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -149,7 +151,8 @@ class TarjetaWidget extends StatelessWidget {
                   backWidget: Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: tarjetaActual.color ?? Colors.lightBlue,
+                      color: ColorHelper.obtenerColor(
+                          tarjetaActual.color ?? 'morado'),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -220,8 +223,8 @@ class TarjetaWidget extends StatelessWidget {
                                       ),
                                 ),
                                 Text(
-                                  tarjetaActual.codigo != null
-                                      ? tarjetaActual.codigo!
+                                  tarjetaActual.codigoCvv != null
+                                      ? tarjetaActual.codigoCvv.toString()
                                       : '',
                                   style: Theme.of(context)
                                       .textTheme

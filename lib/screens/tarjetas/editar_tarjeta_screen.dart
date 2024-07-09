@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_color_picker_wheel/flutter_color_picker_wheel.dart';
-import 'package:flutter_color_picker_wheel/models/button_behaviour.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as picker;
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
@@ -10,15 +8,19 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/tarjeta_controller.dart';
+import '../../helpers/color_helper.dart';
 import '../../themes/color_palette.dart';
 import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
+import '../../utils/modal_utils.dart';
 import '../../widgets/global/global_button.dart';
+import '../../widgets/global/global_seleccion_color.dart';
 import '../../widgets/global/input_label.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
 
 class EditarTarjetaScreen extends StatefulWidget {
-  const EditarTarjetaScreen({super.key});
+  const EditarTarjetaScreen({super.key, this.tarjetaId});
+  final String? tarjetaId;
 
   @override
   State<EditarTarjetaScreen> createState() => _EditarTarjetaScreenState();
@@ -28,10 +30,23 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
   final TarjetaController tarjetaController = Get.find<TarjetaController>();
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController titularController = TextEditingController();
+  final TextEditingController diaCorteController = TextEditingController();
+  final TextEditingController diaPagoController = TextEditingController();
+  final MaskedTextController codigoController =
+      MaskedTextController(mask: '0000');
+  final TextEditingController comentarioController = TextEditingController();
+  final MaskedTextController numeroController =
+      MaskedTextController(mask: '0000000000000000');
   @override
   void initState() {
     tituloController.text = tarjetaController.tarjetaActual.titulo!;
     titularController.text = tarjetaController.tarjetaActual.titular!;
+    diaCorteController.text = tarjetaController.tarjetaActual.diaCorte!;
+    diaPagoController.text = tarjetaController.tarjetaActual.diaPago!;
+    codigoController.text =
+        tarjetaController.tarjetaActual.codigoCvv.toString();
+    comentarioController.text = tarjetaController.tarjetaActual.comentario!;
+    numeroController.text = tarjetaController.tarjetaActual.numero!;
     super.initState();
   }
 
@@ -39,6 +54,11 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
   void dispose() {
     tituloController.dispose();
     titularController.dispose();
+    diaCorteController.dispose();
+    diaPagoController.dispose();
+    codigoController.dispose();
+    comentarioController.dispose();
+    numeroController.dispose();
     super.dispose();
   }
 
@@ -47,16 +67,8 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
     final GestureFlipCardController flipController =
         GestureFlipCardController();
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-    final MaskedTextController numeroController =
-        MaskedTextController(mask: '0000000000000000');
     final MaskedTextController expiracionController =
         MaskedTextController(mask: '00/00');
-    final MaskedTextController codigoController =
-        MaskedTextController(mask: '0000');
-
-    final TextEditingController diaCorteController = TextEditingController();
-    final TextEditingController diaPagoController = TextEditingController();
 
     Widget setEspaciador({double? altura}) {
       return SizedBox(height: altura ?? 30);
@@ -82,8 +94,9 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
       await tarjetaController.cambiarCodigo(val);
     }
 
-    Future<void> cambiarColor(Color val) async {
+    Future<void> cambiarColor(String val) async {
       await tarjetaController.cambiarColor(val);
+      Get.back();
     }
 
     Future<void> cambiarFechaCorte(DateTime val) async {
@@ -121,6 +134,15 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
       }
     }
 
+    Future<void> abrirColorSeleccion() async {
+      ModalUtils.mostrarBottomSheet(
+        titulo: 'Selecciona tu color favorito',
+        contenido: GlobalSeleccionColor(
+          onTap: (String val) => cambiarColor(val),
+        ),
+      );
+    }
+
     return Scaffold(
       body: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -144,7 +166,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
                     child: Obx(
                       () => Center(
                         child: Hero(
-                          tag: tarjetaController.tarjetaActual.tarjetaId!,
+                          tag: widget.tarjetaId!,
                           child: TarjetaWidget(
                             alto: double.infinity,
                             ancho: double.infinity,
@@ -171,39 +193,22 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
                               ),
                         ),
                         const SizedBox(width: 12),
-                        WheelColorPicker(
-                          onSelect: (Color newColor) async {
-                            await cambiarColor(newColor);
+                        InkWell(
+                          onTap: () {
+                            abrirColorSeleccion();
                           },
-                          behaviour: ButtonBehaviour.clickToOpen,
-                          defaultColor: Colors.lightBlue,
-                          animationConfig: fanLikeAnimationConfig,
-                          // colorList: const <List<Color>>[
-                          //   <Color>[
-                          //     Colors.red,
-                          //     Colors.redAccent,
-                          //     Colors.deepOrange
-                          //   ],
-                          //   <Color>[
-                          //     Colors.black26,
-                          //     Colors.black45,
-                          //     Colors.black87
-                          //   ],
-                          //   <Color>[
-                          //     Colors.blue,
-                          //     Colors.blueAccent,
-                          //     Colors.blueGrey
-                          //   ],
-                          //   <Color>[
-                          //     Colors.deepPurpleAccent,
-                          //     Colors.purpleAccent
-                          //   ],
-                          // ],
-                          colorList: simpleColors,
-                          buttonSize: 40,
-                          pieceHeight: 15,
-                          innerRadius: 80,
-                          stickToButton: false,
+                          child: Obx(
+                            () => Container(
+                              width: 36,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                color: ColorHelper.obtenerColor(
+                                    tarjetaController.tarjetaActual.color ??
+                                        'morado'),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -212,7 +217,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
               ),
             ),
             centerTitle: true,
-            title: const Text('Nueva tarjeta'),
+            title: const Text('Editar tarjeta'),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
@@ -465,6 +470,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
                         setEspaciador(),
                         const InputLabel(texto: 'Comentarios'),
                         TextFormField(
+                          controller: comentarioController,
                           textInputAction: TextInputAction.done,
                           maxLength: 200,
                           maxLines: 3,
