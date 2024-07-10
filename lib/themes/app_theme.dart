@@ -20,6 +20,10 @@ final ThemeData themeLight = ThemeData(
     surface: Colors.yellow,
     onSurface: colorSecundarioDark,
   ),
+  cardTheme: const CardTheme(
+    elevation: 16,
+    color: Colors.white,
+  ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,
     backgroundColor: colorPrimario,
@@ -201,6 +205,11 @@ final ThemeData themeDark = ThemeData(
     onBackground: darkColorBackground,
     surface: Colors.yellow,
     onSurface: colorOro,
+  ),
+  cardTheme: const CardTheme(
+    elevation: 16,
+    color: Color.fromRGBO(170, 143, 206, 1),
+    shadowColor: Colors.white60,
   ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,

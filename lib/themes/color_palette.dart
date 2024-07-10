@@ -39,6 +39,7 @@ const Color darkColorSecundarioDarker = Color.fromRGBO(245, 245, 245, 1);
 const Color darkColorLight = Color.fromRGBO(236, 235, 252, 1);
 const Color darkColorBackground = Color.fromRGBO(50, 50, 50, 1);
 const Color darkColorTexto = Color.fromRGBO(255, 255, 255, 1);
+const Color darkColorTextoSecundario = Color.fromRGBO(0, 0, 0, 1);
 const List<Color> darkColoresGradiantBar = <Color>[
   darkColorPrimarioDark,
   darkColorPrimarioDark,
