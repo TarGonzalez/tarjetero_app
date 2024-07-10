@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/tarjeta.dart';
-import '../../routes/routes_names.dart';
 import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/global/global_progress.dart';
-import '../../widgets/tarjetas/tarjeta_widget.dart';
+import '../../widgets/tarjetas/tarjeta_tile.dart';
 
 class TabCards extends StatelessWidget {
   const TabCards({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future<void> irEditar(Tarjeta tarjeta) async {
-      Get.find<TarjetaController>().tarjetaActual = tarjeta;
-      Get.toNamed(nameEditarTarjetaScreen, arguments: tarjeta.tarjetaId);
-    }
-
     return FutureBuilder<List<Tarjeta>>(
       future: Get.find<TarjetaController>().listar(clienteId: '1'),
       builder: (BuildContext context, AsyncSnapshot<List<Tarjeta>> snapshot) {
@@ -47,20 +40,17 @@ class TabCards extends StatelessWidget {
           return const Center(child: Text('No hay tarjetas disponibles.'));
         } else {
           // lista las tarjetas
-          return ListView.builder(
+          return ListView.separated(
             itemCount: snapshot.data!.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return Hero(
-                tag: snapshot.data![index].tarjetaId!,
-                child: TarjetaWidget(
-                  tarjetaActual: snapshot.data![index],
-                  ctlr: GestureFlipCardController(),
-                  mostrarOpciones: true,
-                  onEdit: () => irEditar(snapshot.data![index]),
-                ),
+              return TarjetaTile(
+                tarjeta: snapshot.data![index],
               );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(height: 24);
             },
           );
         }
