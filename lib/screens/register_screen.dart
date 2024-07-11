@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           password: passCtr.text.trim(),
           passwordConfirm: passVerificarCtr.text.trim(),
           nombres: nombresCtr.text.trim(),
-          apellidos: nombresCtr.text.trim(),
+          apellidos: apellidosCtr.text.trim(),
         );
         if (logeado) {
           await _irHome();
