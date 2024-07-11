@@ -34,6 +34,7 @@ class GlobalBannerInfo extends StatelessWidget {
         Text(
           informacion ?? '',
           style: Theme.of(Get.context!).textTheme.bodySmall,
+          textAlign: TextAlign.center,
         ),
       ],
     );
