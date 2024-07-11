@@ -12,6 +12,7 @@ final basePath = EnvReader.getBasePath();
 final appMode = EnvReader.getAppMode();
 final apiToken = EnvReader.getApiKey();
 final String httpString = appMode == 'development' ? 'http://' : 'https://';
+const List<int> codigosServerException = [300, 301, 404, 405, 500];
 
 final options = BaseOptions(
   baseUrl: '$httpString$apiUrl/$basePath',
@@ -61,8 +62,8 @@ class ApiHandler {
 
       return _getResponseData(response, modulo, endpoint);
     } on DioException catch (dioError) {
-      if (dioError.type == DioExceptionType.badResponse) {
-        // print('Error de servidor: ${dioError.response?.statusCode}');
+      if (dioError.type == DioExceptionType.badResponse &&
+          !codigosServerException.contains(dioError.response?.statusCode)) {
         throw Exception(_obtenerMensajeError('E02'));
       }
       if (dioError.type == DioExceptionType.cancel) {
@@ -80,8 +81,14 @@ class ApiHandler {
         LoggerHelper.error('Error de red: ${dioError.message}');
       }
 
-      throw Exception(
-          _obtenerMensajeError(dioError.response?.statusCode.toString()));
+      final extractedData = dioError.response?.data;
+
+      if (extractedData != null) {
+        return _getBadResponseData(extractedData, modulo, endpoint);
+      } else {
+        throw Exception(
+            _obtenerMensajeError(dioError.response?.statusCode.toString()));
+      }
     } catch (error) {
       rethrow;
     }
@@ -118,8 +125,8 @@ class ApiHandler {
 
       return _getResponseData(response, modulo, endpoint);
     } on DioException catch (dioError) {
-      if (dioError.type == DioExceptionType.badResponse) {
-        // print('Error de servidor: ${dioError.response?.statusCode}');
+      if (dioError.type == DioExceptionType.badResponse &&
+          !codigosServerException.contains(dioError.response?.statusCode)) {
         throw Exception(_obtenerMensajeError('E02'));
       }
       if (dioError.type == DioExceptionType.cancel) {
@@ -137,8 +144,14 @@ class ApiHandler {
         LoggerHelper.error('Error de red: ${dioError.message}');
       }
 
-      throw Exception(
-          _obtenerMensajeError(dioError.response?.statusCode.toString()));
+      final extractedData = dioError.response?.data;
+
+      if (extractedData != null) {
+        return _getBadResponseData(extractedData, modulo, endpoint);
+      } else {
+        throw Exception(
+            _obtenerMensajeError(dioError.response?.statusCode.toString()));
+      }
     } catch (error) {
       rethrow;
     }
@@ -159,6 +172,16 @@ class ApiHandler {
 
     if (response.statusCode == 200) {
       return extractedData['datos'];
+    }
+
+    throw Exception('Error realizando petición $modulo/$endpoint');
+  }
+
+  dynamic _getBadResponseData(extractedData, String modulo, String endpoint) {
+    final int codigo = int.parse(extractedData['codigo'].toString());
+
+    if (codigo > 200) {
+      throw Exception(extractedData['mensaje']);
     }
 
     throw Exception('Error realizando petición $modulo/$endpoint');
