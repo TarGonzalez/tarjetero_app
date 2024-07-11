@@ -49,11 +49,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           _isLoading = true;
         });
         final bool logeado = await loginCtr.registrarse(
-          nombres: nombresCtr.text.trim(),
-          apellidos: nombresCtr.text.trim(),
-          email: nombresCtr.text.trim(),
+          email: emailCtr.text.trim(),
           usuario: usuarioCtr.text.trim(),
           password: passCtr.text.trim(),
+          passwordConfirm: passVerificarCtr.text.trim(),
+          nombres: nombresCtr.text.trim(),
+          apellidos: nombresCtr.text.trim(),
         );
         if (logeado) {
           await _irHome();

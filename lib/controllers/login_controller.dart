@@ -23,49 +23,51 @@ class LoginController extends GetxController {
     // ignore: always_specify_types
     final response = await ApiHandler().post('auth', 'login', parametros);
     if (response != null) {
-      await sesionGuardarDatos();
+      await sesionGuardarDatos(response);
       return true;
     }
     return false;
   }
 
   Future<bool> registrarse({
-    required String nombres,
-    required String apellidos,
     required String email,
     required String usuario,
     required String password,
+    required String passwordConfirm,
+    required String nombres,
+    required String apellidos,
   }) async {
     final Map<String, dynamic> parametros = <String, dynamic>{
-      'nombres': nombres,
-      'apellidos': apellidos,
       'email': email,
       'usuario': usuario,
       'password': password,
+      'passwordConfirm': passwordConfirm,
+      'nombre': nombres,
+      'apellidos': apellidos,
     };
     // ignore: always_specify_types
-    final response = await ApiHandler().post('auth', 'register', parametros);
+    final response = await ApiHandler().post('clientes', 'registro', parametros);
     if (response != null) {
-      await sesionGuardarDatos();
+      await sesionGuardarDatos(response);
       return true;
     }
     return false;
   }
 
-  Future<void> sesionGuardarDatos() async {
+  Future<void> sesionGuardarDatos(Map<String, dynamic> response) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String theme = prefs.getString('theme') ?? themeTipoDefault;
     await prefs.setString('theme', theme);
     final Sesion temporal = Sesion(
-      clienteId: 'wu3yrfh',
-      email: 'miguel.gf.130@gmail.com',
-      nombre: 'Miguel',
-      apellidos: 'González Flores ',
-      anioNacimiento: '1989',
-      mesNacimiento: '06',
-      sexo: 'Hombre',
-      tokenSesion: 'ueEIGH-ifhuw@jenh38t4uh4',
-      usuario: 'mike',
+      clienteId: response['clienteId'],
+      email: response['email'],
+      nombre: response['nombre'],
+      apellidos: response['apellidos'],
+      fechaNacimiento: response['fechaNacimiento'],
+      sexo: response['sexo'],
+      tokenSesion: response['token'],
+      pin: response['pin'],
+      usuario: response['usuario'],
     );
     appCtr.sesionObj.value = temporal;
     appCtr.theme.value = theme;
