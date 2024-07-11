@@ -12,8 +12,8 @@ Sesion _$SesionFromJson(Map<String, dynamic> json) => Sesion(
       nombre: json['nombre'] as String?,
       apellidos: json['apellidos'] as String?,
       email: json['email'] as String?,
-      anioNacimiento: json['anio_nacimiento'] as String?,
-      mesNacimiento: json['mes_nacimiento'] as String?,
+      fechaNacimiento: json['fecha_nacimiento'] as String?,
+      pin: json['pin'] as String?,
       sexo: json['sexo'] as String?,
       usuario: json['usuario'] as String?,
     );
@@ -24,8 +24,8 @@ Map<String, dynamic> _$SesionToJson(Sesion instance) => <String, dynamic>{
       'nombre': instance.nombre,
       'apellidos': instance.apellidos,
       'email': instance.email,
-      'anio_nacimiento': instance.anioNacimiento,
-      'mes_nacimiento': instance.mesNacimiento,
+      'fecha_nacimiento': instance.fechaNacimiento,
+      'pin': instance.pin,
       'sexo': instance.sexo,
       'usuario': instance.usuario,
     };

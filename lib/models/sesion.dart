@@ -10,8 +10,8 @@ class Sesion {
     this.nombre,
     this.apellidos,
     this.email,
-    this.anioNacimiento,
-    this.mesNacimiento,
+    this.fechaNacimiento,
+    this.pin,
     this.sexo,
     this.usuario,
   });
@@ -25,10 +25,9 @@ class Sesion {
   String? nombre;
   String? apellidos;
   String? email;
-  @JsonKey(name: 'anio_nacimiento')
-  String? anioNacimiento;
-  @JsonKey(name: 'mes_nacimiento')
-  String? mesNacimiento;
+  @JsonKey(name: 'fecha_nacimiento')
+  String? fechaNacimiento;
+  String? pin;
   String? sexo;
   String? usuario;
 
