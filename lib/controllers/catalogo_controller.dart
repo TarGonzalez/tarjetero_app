@@ -6,9 +6,7 @@ import '/models/marca_tarjeta.dart';
 class CatalogoController extends GetxController {
   static const String endPoint = 'catalogos';
 
-  Future<List<MarcaTarjeta>> listarMarcasTarjetas({
-    required String clienteId,
-  }) async {
+  Future<List<MarcaTarjeta>> listarMarcasTarjetas() async {
     List<MarcaTarjeta> marcas = <MarcaTarjeta>[];
     final Map<String, dynamic> parametros = <String, dynamic>{};
     // ignore: always_specify_types
