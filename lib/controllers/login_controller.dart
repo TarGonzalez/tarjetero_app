@@ -17,7 +17,7 @@ class LoginController extends GetxController {
     required String password,
   }) async {
     final Map<String, dynamic> parametros = <String, dynamic>{
-      'usuario': usuario,
+      'email': usuario,
       'password': password,
     };
     // ignore: always_specify_types
