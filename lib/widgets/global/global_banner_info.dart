@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 
 import '../../app_assets.dart';
@@ -31,11 +32,17 @@ class GlobalBannerInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Text(
-          informacion ?? '',
-          style: Theme.of(Get.context!).textTheme.bodySmall,
-          textAlign: TextAlign.center,
+        Html(
+          data: informacion != null ? '<p>$informacion</p>' : '',
+          style: <String, Style>{
+            'p': Style(
+              alignment: Alignment.center,
+            ),
+          },
+          shrinkWrap: true,
         ),
+          // style: Theme.of(Get.context!).textTheme.bodySmall,
+          // textAlign: TextAlign.center,
       ],
     );
   }
