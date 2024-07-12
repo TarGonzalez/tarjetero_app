@@ -9,14 +9,17 @@ import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 import '../../controllers/app_controller.dart';
+import '../../controllers/catalogo_controller.dart';
 import '../../controllers/tarjeta_controller.dart';
 import '../../helpers/color_helper.dart';
+import '../../models/marca_tarjeta.dart';
 import '../../themes/color_palette.dart';
 import '../../utils/fecha_utils.dart';
 import '../../utils/loader.dart';
 import '../../utils/modal_utils.dart';
 import '../../widgets/global/global_button.dart';
 import '../../widgets/global/global_seleccion_color.dart';
+import '../../widgets/global/global_seleccion_marca_tarjeta.dart';
 import '../../widgets/global/input_label.dart';
 import '../../widgets/tarjetas/tarjeta_widget.dart';
 
@@ -29,6 +32,18 @@ class NuevaTarjetaScreen extends StatefulWidget {
 
 class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
   final AppController appCtr = Get.find<AppController>();
+  final CatalogoController catCtr = Get.find<CatalogoController>();
+  late List<MarcaTarjeta> marcasTarjetas;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      marcasTarjetas =
+          await catCtr.listarMarcasTarjetas();
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final TarjetaController tarjetaController = Get.find<TarjetaController>();
@@ -77,6 +92,11 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       Get.back();
     }
 
+    Future<void> cambiarMarca(MarcaTarjeta val) async {
+      // await tarjetaController.cambiarColor(val);
+      Get.back();
+    }
+
     Future<void> cambiarFechaCorte(DateTime val) async {
       final String fechaFormateada =
           FechaUtils.getFormatoFecha(fecha: val, conHora: false, tipo: 'dia');
@@ -121,6 +141,16 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       );
     }
 
+    Future<void> abrirMarcaSeleccion() async {
+      ModalUtils.mostrarBottomSheet(
+        titulo: 'Selecciona la marca de tarjeta',
+        contenido: GlobalSeleccionMarcaTarjeta(
+          onTap: (MarcaTarjeta val) => cambiarMarca(val),
+          marcasTarjetas: marcasTarjetas,
+        ),
+      );
+    }
+
     return Scaffold(
       body: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -131,17 +161,19 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: <Widget>[
-                  Obx(() => Container(
-                    decoration: appCtr.theme.value == themeTipoLight
-                ? ligthLinearGradient
-                : darkLinearGradient,
-                  ),),
+                  Obx(
+                    () => Container(
+                      decoration: appCtr.theme.value == themeTipoLight
+                          ? ligthLinearGradient
+                          : darkLinearGradient,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 90.0,
                       bottom: 75.0,
-                      right: 40.0,
-                      left: 40.0,
+                      right: 30.0,
+                      left: 30.0,
                     ),
                     child: Obx(
                       () => Center(
@@ -155,7 +187,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                     ),
                   ),
                   Positioned(
-                    bottom: 10,
+                    bottom: 20,
                     right: 30,
                     child: Row(
                       children: <Widget>[
@@ -186,6 +218,42 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                               ),
                             ),
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 30,
+                    child: Row(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            abrirMarcaSeleccion();
+                          },
+                          child: Obx(
+                            () => Container(
+                              width: 36,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                color: ColorHelper.obtenerColor(
+                                    tarjetaController.tarjetaActual.color ??
+                                        'morado'),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Marca',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
                         ),
                       ],
                     ),

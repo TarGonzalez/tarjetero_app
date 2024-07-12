@@ -36,13 +36,39 @@ class GlobalSeleccionColor extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 6),
-              Container(
-                width: 67,
-                height: 47,
-                decoration: BoxDecoration(
-                  color: ColorHelper.obtenerColor(coloresSeleccion[index]),
-                  borderRadius: BorderRadius.circular(4),
-                ),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    width: 67,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: ColorHelper.obtenerColor(coloresSeleccion[index]),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      width: 67,
+                      height: 9,
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        border: Border(
+                          left: BorderSide(
+                            color: ColorHelper.obtenerColor(
+                                coloresSeleccion[index]),
+                            width: 0.1,
+                          ),
+                          right: BorderSide(
+                            color: ColorHelper.obtenerColor(
+                                coloresSeleccion[index]),
+                            width: 0.1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
