@@ -1,5 +1,6 @@
 // import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 // import '../helpers/color_converter_helper.dart';
 
 part 'tarjeta.g.dart';
@@ -30,11 +31,11 @@ class Tarjeta {
   String? titulo;
   String? numero;
   @JsonKey(name: 'ultimos_digitos')
-  int? ultimosDigitos;
+  String? ultimosDigitos;
   String? titular;
   String? expiracion;
   @JsonKey(name: 'codigo_cvv')
-  int? codigoCvv;
+  String? codigoCvv;
   // @ColorConverterHelper()
   // Color? color;
   String? color;
@@ -43,7 +44,6 @@ class Tarjeta {
   @JsonKey(name: 'dia_pago')
   String? diaPago;
   String? comentario;
-  @JsonKey(name: 'marca_tarjeta_id')
   String? marcaTarjetaId;
   String? icono;
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
@@ -51,10 +51,10 @@ class Tarjeta {
   Tarjeta copyWith({
     String? titulo,
     String? numero,
-    int? ultimosDigitos,
+    String? ultimosDigitos,
     String? titular,
     String? expiracion,
-    int? codigoCvv,
+    String? codigoCvv,
     String? color,
     String? diaCorte,
     String? diaPago,

@@ -10,15 +10,15 @@ Tarjeta _$TarjetaFromJson(Map<String, dynamic> json) => Tarjeta(
       tarjetaId: json['tarjeta_id'] as String?,
       titulo: json['titulo'] as String?,
       numero: json['numero'] as String?,
-      ultimosDigitos: (json['ultimos_digitos'] as num?)?.toInt(),
+      ultimosDigitos: json['ultimos_digitos'] as String?,
       titular: json['titular'] as String?,
       expiracion: json['expiracion'] as String?,
-      codigoCvv: (json['codigo_cvv'] as num?)?.toInt(),
+      codigoCvv: json['codigo_cvv'] as String?,
       color: json['color'] as String?,
       diaCorte: json['dia_corte'] as String?,
       diaPago: json['dia_pago'] as String?,
       comentario: json['comentario'] as String?,
-      marcaTarjetaId: json['marca_tarjeta_id'] as String?,
+      marcaTarjetaId: json['marcaTarjetaId'] as String?,
       icono: json['icono'] as String?,
     );
 
@@ -34,6 +34,6 @@ Map<String, dynamic> _$TarjetaToJson(Tarjeta instance) => <String, dynamic>{
       'dia_corte': instance.diaCorte,
       'dia_pago': instance.diaPago,
       'comentario': instance.comentario,
-      'marca_tarjeta_id': instance.marcaTarjetaId,
+      'marcaTarjetaId': instance.marcaTarjetaId,
       'icono': instance.icono,
     };
