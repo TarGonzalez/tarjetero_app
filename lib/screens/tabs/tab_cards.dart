@@ -13,7 +13,7 @@ class TabCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Tarjeta>>(
-      future: Get.find<TarjetaController>().listar(clienteId: '1'),
+      future: Get.find<TarjetaController>().listar(status: 200),
       builder: (BuildContext context, AsyncSnapshot<List<Tarjeta>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // mientras este buscando
