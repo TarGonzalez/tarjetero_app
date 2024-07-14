@@ -43,8 +43,10 @@ class ApiHandler {
         );
       }
 
-      // *importante: En caso de que se requiera parametros adicionales
-      // filtros.addAll({'param': valor});
+      final String clienteId = Utils.obtenerClienteId();
+      if (clienteId.isNotEmpty) {
+        filtros.addAll({'clienteId': clienteId});
+      }
 
       // ! linea para mostrar log de peticiones en consola
       //dio.interceptors.add(LogInterceptor(responseBody: true));
@@ -114,6 +116,11 @@ class ApiHandler {
         'Se listan parametros para petición /$modulo/$endpoint',
       );
       LoggerHelper.debug(parametros);
+
+      final String clienteId = Utils.obtenerClienteId();
+      if (clienteId.isNotEmpty) {
+        parametros.addAll({'clienteId': clienteId});
+      }
 
       final Object formData =
           isUpload ? FormData.fromMap(parametros) : parametros;
