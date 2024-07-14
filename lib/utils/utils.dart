@@ -55,7 +55,13 @@ class Utils {
     const String pattern =
         r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
     final RegExp regExp = RegExp(pattern);
-    
+
     return regExp.hasMatch(email);
+  }
+
+  static String obtenerClienteId() {
+    final AppController appController = Get.find<AppController>();
+
+    return appController.sesionObj.value.clienteId ?? '';
   }
 }
