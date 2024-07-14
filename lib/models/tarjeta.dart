@@ -14,6 +14,8 @@ class Tarjeta {
     this.ultimosDigitos,
     this.titular,
     this.expiracion,
+    this.anioExpiracion,
+    this.mesExpiracion,
     this.codigoCvv,
     this.color,
     this.diaCorte,
@@ -34,6 +36,10 @@ class Tarjeta {
   String? ultimosDigitos;
   String? titular;
   String? expiracion;
+  @JsonKey(name: 'anio_expiracion')
+  String? anioExpiracion;
+  @JsonKey(name: 'mes_expiracion')
+  String? mesExpiracion;
   @JsonKey(name: 'codigo_cvv')
   String? codigoCvv;
   // @ColorConverterHelper()
@@ -44,6 +50,7 @@ class Tarjeta {
   @JsonKey(name: 'dia_pago')
   String? diaPago;
   String? comentario;
+  @JsonKey(name: 'marca_tarjeta_id')
   String? marcaTarjetaId;
   String? icono;
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
