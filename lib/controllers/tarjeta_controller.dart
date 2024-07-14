@@ -72,7 +72,7 @@ class TarjetaController extends GetxController {
       numero: tarjetaActual.numero,
       titular: tarjetaActual.titular,
       expiracion: tarjetaActual.expiracion,
-      codigoCvv: int.tryParse(val),
+      codigoCvv: val,
       color: tarjetaActual.color,
       diaCorte: tarjetaActual.diaCorte,
       diaPago: tarjetaActual.diaPago,
@@ -126,11 +126,11 @@ class TarjetaController extends GetxController {
   }
 
   Future<List<Tarjeta>> listar({
-    required String clienteId,
+    required int status,
   }) async {
     List<Tarjeta> tarjetas = <Tarjeta>[];
     final Map<String, dynamic> parametros = <String, dynamic>{
-      'clienteId': clienteId
+      'status[0]': status
     };
     // ignore: always_specify_types
     final response = await ApiHandler().get(endPoint, 'listar', parametros);
@@ -139,5 +139,17 @@ class TarjetaController extends GetxController {
       tarjetas = (response as List).map((r) => Tarjeta.fromJson(r)).toList();
     }
     return tarjetas;
+  }
+
+  Future<bool> agregar({  
+    required Tarjeta tarjeta
+  }) async {
+    final Map<String, dynamic> parametros = tarjeta.toJson();
+    // ignore: always_specify_types
+    final response = await ApiHandler().post(endPoint, 'agregar', parametros);
+    if (response != null) {
+      return true;
+    }
+    return false;
   }
 }
