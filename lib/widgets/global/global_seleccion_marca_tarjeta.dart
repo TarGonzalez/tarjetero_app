@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import '../../models/marca_tarjeta.dart';
+import '../tarjetas/marca_icono_widget.dart';
 
 class GlobalSeleccionMarcaTarjeta extends StatelessWidget {
   const GlobalSeleccionMarcaTarjeta({
@@ -45,17 +44,10 @@ class GlobalSeleccionMarcaTarjeta extends StatelessWidget {
               const SizedBox(height: 6),
               Stack(
                 children: <Widget>[
-                  Container(
-                    width: 67,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Colors.white,
-                    ),
-                    child: Image.memory(
-                      base64Decode(marcasTarjetas[index].icono!),
-                      fit: BoxFit.cover,
-                    ),
+                  MarcaIconoWidget(
+                    ancho: 67,
+                    alto: 42,
+                    icono: marcasTarjetas[index].icono ?? '',
                   ),
                 ],
               ),
