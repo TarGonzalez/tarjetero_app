@@ -11,6 +11,7 @@ import '../../controllers/catalogo_controller.dart';
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/marca_tarjeta.dart';
 import '../../models/tarjeta.dart';
+import '../../routes/routes_names.dart';
 import '../../themes/color_palette.dart';
 import '../../utils/loader.dart';
 import '../../utils/modal_utils.dart';
@@ -19,6 +20,7 @@ import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/global/global_button.dart';
 import '../../widgets/global/global_seleccion_marca_tarjeta.dart';
 import 'form_tarjeta_basico.dart';
+import 'form_tarjeta_completo.dart';
 
 class NuevaTarjetaScreen extends StatefulWidget {
   const NuevaTarjetaScreen({super.key});
@@ -36,6 +38,12 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
       MaskedTextController(mask: '0000000000000000');
   final TextEditingController titularController = TextEditingController();
   final TextEditingController comentarioController = TextEditingController();
+  final MaskedTextController expiracionController =
+      MaskedTextController(mask: '00/00');
+  final MaskedTextController codigoController =
+      MaskedTextController(mask: '0000');
+  final TextEditingController diaCorteController = TextEditingController();
+  final TextEditingController diaPagoController = TextEditingController();
   List<MarcaTarjeta> marcasTarjetas = <MarcaTarjeta>[];
   bool tipoTarjeta = false;
   bool isLoading = false;
@@ -56,6 +64,11 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     numeroController.dispose();
     titularController.dispose();
     comentarioController.dispose();
+    expiracionController.dispose();
+    codigoController.dispose();
+
+    diaCorteController.dispose();
+    diaPagoController.dispose();
     // _debounce?.cancel();
     super.dispose();
   }
@@ -74,6 +87,8 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
           isLoading = true;
         });
         Loader.mostrar();
+        final List<String> fechaExpiracion =
+            expiracionController.text.split('/');
         final TarjetaController tarjetaCtr = Get.find<TarjetaController>();
         final Tarjeta tarjeta = Tarjeta(
           numero: numeroController.text.trim(),
@@ -81,10 +96,17 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
           titulo: tituloController.text.trim(),
           color: appCtr.tarjeta.value.color ?? 'morado',
           marcaTarjetaId: appCtr.tarjeta.value.marcaTarjetaId,
+          codigoCvv: codigoController.text.trim(),
+          comentario: comentarioController.text.trim(),
+          mesExpiracion: fechaExpiracion[0],
+          anioExpiracion: fechaExpiracion[1],
+          diaCorte: diaCorteController.text.trim(),
+          diaPago: diaPagoController.text.trim(),
         );
         await tarjetaCtr.agregar(tarjeta: tarjeta);
         await limpiarFormulario();
         Get.back();
+        Get.offAllNamed(nameTabsScreen);
       }
     } catch (e) {
       if (isLoading) {
@@ -208,13 +230,24 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 20),
                         FormTarjetaBasico(
                           tituloController: tituloController,
                           numeroController: numeroController,
                           titularController: titularController,
                           comentarioController: comentarioController,
                           marcasTarjetas: marcasTarjetas,
-                        )
+                        ),
+                        Obx(
+                          () => appCtr.tipoTarjeta.value
+                              ? FormTarjetaCompleto(
+                                  diaCorteController: diaCorteController,
+                                  diaPagoController: diaPagoController,
+                                  expiracionController: expiracionController,
+                                  codigoController: codigoController,
+                                )
+                              : const SizedBox(),
+                        ),
                       ],
                     ),
                   ),

@@ -141,10 +141,20 @@ class TarjetaController extends GetxController {
     return tarjetas;
   }
 
-  Future<bool> agregar({  
-    required Tarjeta tarjeta
-  }) async {
-    final Map<String, dynamic> parametros = tarjeta.toJson();
+  Future<bool> agregar({required Tarjeta tarjeta}) async {
+    final Map<String, dynamic> parametros = <String, dynamic>{
+      'numero': tarjeta.numero,
+      'titular': tarjeta.titular,
+      'titulo': tarjeta.titulo,
+      'color': tarjeta.color,
+      'marcaTarjetaId': tarjeta.marcaTarjetaId,
+      'anioExpiracion': tarjeta.anioExpiracion,
+      'mesExpiracion': tarjeta.mesExpiracion,
+      'codigoCvv': tarjeta.codigoCvv,
+      'comentario': tarjeta.comentario,
+      'diaCorte': tarjeta.diaCorte,
+      'diaPago': tarjeta.diaPago,
+    };
     // ignore: always_specify_types
     final response = await ApiHandler().post(endPoint, 'agregar', parametros);
     if (response != null) {
