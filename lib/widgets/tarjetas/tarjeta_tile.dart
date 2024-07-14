@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +8,7 @@ import '../../helpers/color_helper.dart';
 import '../../models/tarjeta.dart';
 import '../../routes/routes_names.dart';
 import '../../themes/color_palette.dart';
+import 'marca_icono_widget.dart';
 
 class TarjetaTile extends StatelessWidget {
   const TarjetaTile({
@@ -44,18 +43,12 @@ class TarjetaTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 6, bottom: 6),
-                  child: Container(
-                      color: Colors.transparent,
-                      width: 20,
-                      height: 16,
-                      child: tarjeta.icono != null
-                          ? Image.memory(
-                              base64Decode(tarjeta.icono!),
-                              fit: BoxFit.cover,
-                            )
-                          : null),
-                ),
+                    padding: const EdgeInsets.only(right: 6, bottom: 6),
+                    child: tarjeta.icono != null
+                        ? MarcaIconoWidget(
+                            icono: tarjeta.icono,
+                          )
+                        : null),
               ),
             ),
             Expanded(
