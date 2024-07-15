@@ -22,7 +22,9 @@ class TarjetaTile extends StatelessWidget {
     final AppController appCtr = Get.find<AppController>();
     Future<void> irEditar() async {
       Get.find<TarjetaController>().tarjetaActual = tarjeta;
-      Get.toNamed(nameEditarTarjetaScreen, arguments: tarjeta.tarjetaId);
+      Get.toNamed(nameEditarTarjetaScreen, arguments: <String, dynamic>{
+        'tarjeta': tarjeta,
+      });
     }
 
     return Card(

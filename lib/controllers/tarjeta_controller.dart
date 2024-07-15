@@ -162,4 +162,27 @@ class TarjetaController extends GetxController {
     }
     return false;
   }
+
+  Future<bool> editar({required Tarjeta tarjeta, required String tarjetaId,}) async {
+    final Map<String, dynamic> parametros = <String, dynamic>{
+      'tarjetaId': tarjetaId,
+      'numero': tarjeta.numero,
+      'titular': tarjeta.titular,
+      'titulo': tarjeta.titulo,
+      'color': tarjeta.color,
+      'marcaTarjetaId': tarjeta.marcaTarjetaId,
+      'anioExpiracion': tarjeta.anioExpiracion,
+      'mesExpiracion': tarjeta.mesExpiracion,
+      'codigoCvv': tarjeta.codigoCvv,
+      'comentario': tarjeta.comentario,
+      'diaCorte': tarjeta.diaCorte,
+      'diaPago': tarjeta.diaPago,
+    };
+    // ignore: always_specify_types
+    final response = await ApiHandler().post(endPoint, 'agregar', parametros);
+    if (response != null) {
+      return true;
+    }
+    return false;
+  }
 }
