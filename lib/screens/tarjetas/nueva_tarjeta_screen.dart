@@ -18,7 +18,6 @@ import '../../utils/modal_utils.dart';
 import '../../utils/utils.dart';
 import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/global/global_button.dart';
-import '../../widgets/global/global_seleccion_marca_tarjeta.dart';
 import 'form_tarjeta_basico.dart';
 import 'form_tarjeta_completo.dart';
 
@@ -45,7 +44,6 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
   final TextEditingController diaCorteController = TextEditingController();
   final TextEditingController diaPagoController = TextEditingController();
   List<MarcaTarjeta> marcasTarjetas = <MarcaTarjeta>[];
-  bool tipoTarjeta = false;
   bool isLoading = false;
   String tituloError = '';
 
@@ -87,8 +85,6 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
           isLoading = true;
         });
         Loader.mostrar();
-        final List<String> fechaExpiracion =
-            expiracionController.text.split('/');
         final TarjetaController tarjetaCtr = Get.find<TarjetaController>();
         final Tarjeta tarjeta = Tarjeta(
           numero: numeroController.text.trim(),
@@ -96,14 +92,20 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
           titulo: tituloController.text.trim(),
           color: appCtr.tarjeta.value.color ?? 'morado',
           marcaTarjetaId: appCtr.tarjeta.value.marcaTarjetaId,
-          codigoCvv: codigoController.text.trim(),
           comentario: comentarioController.text.trim(),
-          mesExpiracion: fechaExpiracion[0],
-          anioExpiracion: fechaExpiracion[1],
-          diaCorte: diaCorteController.text.trim(),
-          diaPago: diaPagoController.text.trim(),
-          tipo: !tipoTarjeta ? tarjetaTipoTarjetero : tarjetaTipoGastos,
+          tipo: !appCtr.tipoTarjeta.value
+              ? tarjetaTipoTarjetero
+              : tarjetaTipoGastos,
         );
+        if (appCtr.tipoTarjeta.value) {
+          final List<String> fechaExpiracion =
+              expiracionController.text.split('/');
+          tarjeta.codigoCvv = codigoController.text.trim();
+          tarjeta.mesExpiracion = fechaExpiracion[0];
+          tarjeta.anioExpiracion = fechaExpiracion[1];
+          tarjeta.diaCorte = diaCorteController.text.trim();
+          tarjeta.diaPago = diaPagoController.text.trim();
+        }
         await tarjetaCtr.agregar(tarjeta: tarjeta);
         await limpiarFormulario();
         Get.back();
@@ -137,29 +139,11 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
     numeroController.text = '';
     titularController.text = '';
     comentarioController.text = '';
-    // expiracionController.text = '';
-    // codigoController.text = '';
-    // diaCorteController.text = '';
-    // diaPagoController.text = '';
+    expiracionController.text = '';
+    codigoController.text = '';
+    diaCorteController.text = '';
+    diaPagoController.text = '';
     await appCtr.limpiarTarjetaActual();
-  }
-
-  Future<void> cambiarMarca(MarcaTarjeta val) async {
-    // appCtr.marcaTarjeta.value.marcaTarjetaId = val.marcaTarjetaId;
-    // appCtr.marcaTarjeta.value.icono = val.icono;
-    Get.back();
-  }
-
-  Future<void> abrirMarcaSeleccion() async {
-    ModalUtils.mostrarBottomSheet(
-      titulo: 'Selecciona la marca de tarjeta',
-      contenido: GlobalSeleccionMarcaTarjeta(
-        onTap: (MarcaTarjeta val) async {
-          await cambiarMarca(val);
-        },
-        marcasTarjetas: marcasTarjetas,
-      ),
-    );
   }
 
   Future<void> regresar() async {

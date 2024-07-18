@@ -18,7 +18,6 @@ import '../../utils/modal_utils.dart';
 import '../../utils/utils.dart';
 import '../../widgets/global/global_banner_info.dart';
 import '../../widgets/global/global_button.dart';
-import '../../widgets/global/global_seleccion_marca_tarjeta.dart';
 import 'form_tarjeta_basico.dart';
 import 'form_tarjeta_completo.dart';
 
@@ -55,19 +54,22 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      marcasTarjetas = await catCtr.listarMarcasTarjetas();
       tarjetaInicial = arguments['tarjeta'];
       appCtr.tarjeta.value = tarjetaInicial;
       tituloController.text = tarjetaInicial.titulo!;
       numeroController.text = tarjetaInicial.numero!;
       titularController.text = tarjetaInicial.titular!;
-      comentarioController.text = tarjetaInicial.comentario!;
-      marcasTarjetas = await catCtr.listarMarcasTarjetas();
+      comentarioController.text = tarjetaInicial.comentario ?? '';
       tipoTarjeta = tarjetaInicial.tipo == tarjetaTipoGastos || false;
+      appCtr.tipoTarjeta.value = tipoTarjeta;
       if (tipoTarjeta) {
         codigoController.text = tarjetaInicial.codigoCvv!;
         final String exp =
             '${tarjetaInicial.mesExpiracion}/${tarjetaInicial.anioExpiracion}';
         expiracionController.text = exp;
+        diaCorteController.text = tarjetaInicial.diaCorte!;
+        diaPagoController.text = tarjetaInicial.diaPago!;
       }
       setState(() {});
     });
@@ -102,8 +104,6 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
           isLoading = true;
         });
         Loader.mostrar();
-        final List<String> fechaExpiracion =
-            expiracionController.text.split('/');
         final TarjetaController tarjetaCtr = Get.find<TarjetaController>();
         final Tarjeta tarjeta = Tarjeta(
           numero: numeroController.text.trim(),
@@ -111,14 +111,20 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
           titulo: tituloController.text.trim(),
           color: appCtr.tarjeta.value.color ?? 'morado',
           marcaTarjetaId: appCtr.tarjeta.value.marcaTarjetaId,
-          codigoCvv: codigoController.text.trim(),
           comentario: comentarioController.text.trim(),
-          mesExpiracion: fechaExpiracion[0],
-          anioExpiracion: fechaExpiracion[1],
-          diaCorte: diaCorteController.text.trim(),
-          diaPago: diaPagoController.text.trim(),
-          tipo: !tipoTarjeta ? tarjetaTipoTarjetero : tarjetaTipoGastos,
+          tipo: !appCtr.tipoTarjeta.value
+              ? tarjetaTipoTarjetero
+              : tarjetaTipoGastos,
         );
+        if (appCtr.tipoTarjeta.value) {
+          final List<String> fechaExpiracion =
+              expiracionController.text.split('/');
+          tarjeta.codigoCvv = codigoController.text.trim();
+          tarjeta.mesExpiracion = fechaExpiracion[0];
+          tarjeta.anioExpiracion = fechaExpiracion[1];
+          tarjeta.diaCorte = diaCorteController.text.trim();
+          tarjeta.diaPago = diaPagoController.text.trim();
+        }
         await tarjetaCtr.editar(
           tarjeta: tarjeta,
           tarjetaId: tarjetaInicial.tarjetaId!,
@@ -155,29 +161,11 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
     numeroController.text = '';
     titularController.text = '';
     comentarioController.text = '';
-    // expiracionController.text = '';
-    // codigoController.text = '';
-    // diaCorteController.text = '';
-    // diaPagoController.text = '';
+    expiracionController.text = '';
+    codigoController.text = '';
+    diaCorteController.text = '';
+    diaPagoController.text = '';
     await appCtr.limpiarTarjetaActual();
-  }
-
-  Future<void> cambiarMarca(MarcaTarjeta val) async {
-    // appCtr.marcaTarjeta.value.marcaTarjetaId = val.marcaTarjetaId;
-    // appCtr.marcaTarjeta.value.icono = val.icono;
-    Get.back();
-  }
-
-  Future<void> abrirMarcaSeleccion() async {
-    ModalUtils.mostrarBottomSheet(
-      titulo: 'Selecciona la marca de tarjeta',
-      contenido: GlobalSeleccionMarcaTarjeta(
-        onTap: (MarcaTarjeta val) async {
-          await cambiarMarca(val);
-        },
-        marcasTarjetas: marcasTarjetas,
-      ),
-    );
   }
 
   Future<void> regresar() async {
@@ -212,7 +200,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
               ),
             ),
             centerTitle: true,
-            title: const Text('Nueva tarjeta'),
+            title: const Text('Editar tarjeta'),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(

@@ -154,6 +154,7 @@ class TarjetaController extends GetxController {
       'comentario': tarjeta.comentario,
       'diaCorte': tarjeta.diaCorte,
       'diaPago': tarjeta.diaPago,
+      'tipo': tarjeta.tipo,
     };
     // ignore: always_specify_types
     final response = await ApiHandler().post(endPoint, 'agregar', parametros);
@@ -177,9 +178,10 @@ class TarjetaController extends GetxController {
       'comentario': tarjeta.comentario,
       'diaCorte': tarjeta.diaCorte,
       'diaPago': tarjeta.diaPago,
+      'tipo': tarjeta.tipo,
     };
     // ignore: always_specify_types
-    final response = await ApiHandler().post(endPoint, 'agregar', parametros);
+    final response = await ApiHandler().post(endPoint, 'editar', parametros);
     if (response != null) {
       return true;
     }
