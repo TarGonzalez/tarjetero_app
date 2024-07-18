@@ -102,6 +102,7 @@ class _NuevaTarjetaScreenState extends State<NuevaTarjetaScreen> {
           anioExpiracion: fechaExpiracion[1],
           diaCorte: diaCorteController.text.trim(),
           diaPago: diaPagoController.text.trim(),
+          tipo: !tipoTarjeta ? tarjetaTipoTarjetero : tarjetaTipoGastos,
         );
         await tarjetaCtr.agregar(tarjeta: tarjeta);
         await limpiarFormulario();

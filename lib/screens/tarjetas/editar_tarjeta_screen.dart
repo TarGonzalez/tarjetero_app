@@ -61,10 +61,14 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
       numeroController.text = tarjetaInicial.numero!;
       titularController.text = tarjetaInicial.titular!;
       comentarioController.text = tarjetaInicial.comentario!;
-      codigoController.text = tarjetaInicial.codigoCvv!;
-      final String exp ='${tarjetaInicial.mesExpiracion}/${tarjetaInicial.anioExpiracion}';
-      expiracionController.text = exp;
       marcasTarjetas = await catCtr.listarMarcasTarjetas();
+      tipoTarjeta = tarjetaInicial.tipo == tarjetaTipoGastos || false;
+      if (tipoTarjeta) {
+        codigoController.text = tarjetaInicial.codigoCvv!;
+        final String exp =
+            '${tarjetaInicial.mesExpiracion}/${tarjetaInicial.anioExpiracion}';
+        expiracionController.text = exp;
+      }
       setState(() {});
     });
   }
@@ -113,6 +117,7 @@ class _EditarTarjetaScreenState extends State<EditarTarjetaScreen> {
           anioExpiracion: fechaExpiracion[1],
           diaCorte: diaCorteController.text.trim(),
           diaPago: diaPagoController.text.trim(),
+          tipo: !tipoTarjeta ? tarjetaTipoTarjetero : tarjetaTipoGastos,
         );
         await tarjetaCtr.editar(
           tarjeta: tarjeta,
