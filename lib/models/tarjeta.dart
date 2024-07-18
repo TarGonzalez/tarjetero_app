@@ -23,6 +23,7 @@ class Tarjeta {
     this.comentario,
     this.marcaTarjetaId,
     this.icono,
+    this.tipo,
   });
 
   factory Tarjeta.fromJson(Map<String, dynamic> data) =>
@@ -53,6 +54,7 @@ class Tarjeta {
   @JsonKey(name: 'marca_tarjeta_id')
   String? marcaTarjetaId;
   String? icono;
+  int? tipo;
   Map<String, dynamic> toJson() => _$TarjetaToJson(this);
 
   Tarjeta copyWith({

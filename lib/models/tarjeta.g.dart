@@ -22,6 +22,7 @@ Tarjeta _$TarjetaFromJson(Map<String, dynamic> json) => Tarjeta(
       comentario: json['comentario'] as String?,
       marcaTarjetaId: json['marca_tarjeta_id'] as String?,
       icono: json['icono'] as String?,
+      tipo: (json['tipo'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TarjetaToJson(Tarjeta instance) => <String, dynamic>{
@@ -40,4 +41,5 @@ Map<String, dynamic> _$TarjetaToJson(Tarjeta instance) => <String, dynamic>{
       'comentario': instance.comentario,
       'marca_tarjeta_id': instance.marcaTarjetaId,
       'icono': instance.icono,
+      'tipo': instance.tipo,
     };
