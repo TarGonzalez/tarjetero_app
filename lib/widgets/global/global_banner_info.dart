@@ -23,6 +23,7 @@ class GlobalBannerInfo extends StatelessWidget {
         Text(
           titulo ?? 'Ocurrió algo inesperado',
           style: Theme.of(Get.context!).textTheme.bodyMedium,
+          textAlign: TextAlign.center,
         ),
         SizedBox(
           width: Get.width * 0.9,
@@ -37,6 +38,7 @@ class GlobalBannerInfo extends StatelessWidget {
           style: <String, Style>{
             'p': Style(
               alignment: Alignment.center,
+              textAlign: TextAlign.center,
             ),
           },
           shrinkWrap: true,
