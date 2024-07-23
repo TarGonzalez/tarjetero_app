@@ -6,6 +6,7 @@ import '/screens/login_screen.dart';
 import '/screens/onboarding_screen.dart';
 import '/screens/register_screen.dart';
 import '/screens/tabs_screen.dart';
+import '/screens/tarjetas/detalle_tarjeta_screen.dart';
 import '/screens/tarjetas/editar_tarjeta_screen.dart';
 import '/screens/tarjetas/nueva_tarjeta_screen.dart';
 
@@ -21,6 +22,10 @@ List<GetPage<dynamic>> rutas = <GetPage<dynamic>>[
   GetPage<dynamic>(
     name: nameEditarTarjetaScreen,
     page: () => const EditarTarjetaScreen(),
+  ),
+  GetPage<dynamic>(
+    name: nameDetalleTarjetaScreen,
+    page: () => const DetalleTarjetaScreen(),
   ),
   GetPage<dynamic>(
       name: nameNuevoGastoScreen, page: () => const NuevoGastoScreen()),
