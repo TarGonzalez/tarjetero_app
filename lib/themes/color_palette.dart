@@ -7,19 +7,20 @@ import 'package:flutter/material.dart';
 // const Color colorGris400 = Color.fromRGBO(171, 184, 214, 1.0);
 // const Color colorGris600 = Color.fromRGBO(157, 169, 199, 1.0);
 // COLORES PARA TEMA CLARO
-const Color colorOro = Color.fromRGBO(234, 169, 33, 1);
-const Color colorPrimario = Color.fromRGBO(19, 11, 68, 1);
-const Color colorSecundario = Color.fromRGBO(213, 184, 213, 1);
+const Color colorOroUnselected = Color.fromRGBO(217, 229, 255, 1);
+const Color colorOro = Color.fromRGBO(245, 198, 100, 1);
+const Color colorPrimario = Color.fromRGBO(11,23,57, 1);
+const Color colorSecundario = Color.fromRGBO(29,54,106, 1);
 const Color colorPrimarioDark = Color.fromRGBO(33, 3, 62, 1);
 const Color colorSecundarioDark = Color.fromRGBO(180, 82, 140, 1);
-const Color colorSecundarioDarker = Color.fromRGBO(146, 105, 169, 1);
+const Color colorSecundarioDarker = Color.fromRGBO(11, 23, 57, 1);
 const Color colorLight = Color.fromRGBO(236, 235, 252, 1);
 const Color colorBackground = Color.fromRGBO(255, 255, 255, 1);
 const Color colorTexto = Color.fromRGBO(0, 0, 0, 1);
 const List<Color> coloresGradiantBar = <Color>[
-  colorPrimario,
-  colorPrimario,
   colorSecundario,
+  colorPrimario,
+  colorPrimario,
 ];
 const BoxDecoration ligthLinearGradient = BoxDecoration(
   gradient: LinearGradient(
@@ -30,20 +31,21 @@ const BoxDecoration ligthLinearGradient = BoxDecoration(
 );
 
 // COLORES PARA TEMA OSCURO
-const Color darkColorOro = Color.fromRGBO(234, 169, 33, 1);
-const Color darkColorPrimario = Color.fromRGBO(19, 11, 68, 1);
-const Color darkColorSecundario = Color.fromRGBO(213, 184, 213, 1);
-const Color darkColorPrimarioDark = Color.fromRGBO(1, 24, 38, 1);
+const Color darkColorOroUnselected = Color.fromRGBO(217, 229, 255, 1);
+const Color darkColorOro = Color.fromRGBO(245, 198, 100, 1);
+const Color darkColorPrimario = Color.fromRGBO(11,23,57, 1);
+const Color darkColorSecundario = Color.fromRGBO(29,54,106, 1);
 const Color darkColorSecundarioDark = Color.fromRGBO(180, 82, 140, 1);
-const Color darkColorSecundarioDarker = Color.fromRGBO(245, 245, 245, 1);
+const Color darkColorPrimarioDark = Color.fromRGBO(33, 3, 62, 1);
+const Color darkColorSecundarioDarker = Color.fromRGBO(11, 23, 57, 1);
 const Color darkColorLight = Color.fromRGBO(236, 235, 252, 1);
-const Color darkColorBackground = Color.fromRGBO(50, 50, 50, 1);
+const Color darkColorBackground = Color.fromRGBO(27, 27, 27, 1);
 const Color darkColorTexto = Color.fromRGBO(255, 255, 255, 1);
 const Color darkColorTextoSecundario = Color.fromRGBO(0, 0, 0, 1);
 const List<Color> darkColoresGradiantBar = <Color>[
-  darkColorPrimarioDark,
-  darkColorPrimarioDark,
   darkColorSecundario,
+  darkColorPrimarioDark,
+  darkColorPrimarioDark,
 ];
 const BoxDecoration darkLinearGradient = BoxDecoration(
   gradient: LinearGradient(
