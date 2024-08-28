@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../app_assets.dart';
 import '../../controllers/tarjeta_controller.dart';
 import '../../models/tarjeta.dart';
 import '../../widgets/global/global_banner_info.dart';
@@ -17,15 +19,15 @@ class TabCards extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Tarjeta>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // mientras este buscando
-          return SizedBox(
-            width: Get.width,
-            height: Get.height / 3,
-            child: const Center(
-              child: GlobalProgress(
-                size: 60,
+          return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(100.0),
+                child: Lottie.asset(
+                  AppAssets.jsonCreditCards,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          );
+            );
         } else if (snapshot.hasError) {
           // si hay un error
           return SizedBox(

@@ -119,8 +119,8 @@ class _TabsScreenState extends State<TabsScreen> {
         ),
       ),
       bottomNavigationBar: MoltenBottomNavigationBar(
-        barColor: Theme.of(context).primaryColor,
-        domeCircleColor: Theme.of(context).primaryColor,
+        barColor: Theme.of(context).colorScheme.primary,
+        domeCircleColor: Theme.of(context).colorScheme.primary,
         selectedIndex: _selectedIndex,
         onTabChange: (int clickedIndex) {
           _setTab(clickedIndex);
@@ -129,6 +129,7 @@ class _TabsScreenState extends State<TabsScreen> {
           MoltenTab(
             icon: const Icon(Icons.home),
             selectedColor: colorOro,
+            unselectedColor: colorOroUnselected,
             // title: Text(
             //   'Home',
             //   style: TextStyle(
@@ -139,18 +140,22 @@ class _TabsScreenState extends State<TabsScreen> {
           MoltenTab(
             icon: const Icon(Icons.credit_card),
             selectedColor: colorOro,
+            unselectedColor: colorOroUnselected,
           ),
           MoltenTab(
             icon: const Icon(Icons.attach_money_outlined),
             selectedColor: colorOro,
+            unselectedColor: colorOroUnselected,
           ),
           MoltenTab(
             icon: const Icon(Icons.access_time_filled_rounded),
             selectedColor: colorOro,
+            unselectedColor: colorOroUnselected,
           ),
           MoltenTab(
             icon: const Icon(Icons.settings),
             selectedColor: colorOro,
+            unselectedColor: colorOroUnselected,
           ),
         ],
       ),
